@@ -56,7 +56,7 @@ const ProfileSettingsStyles = styled.div`
 `;
 
 export default function ProfileSettings(props) {
-  const { section, user } = props;
+  const { user } = props;
   const { firstName, lastName, email, phone } = user;
   return (
     <ProfileSettingsStyles>
