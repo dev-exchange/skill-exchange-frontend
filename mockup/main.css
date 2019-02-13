@@ -210,7 +210,7 @@ body {
 .highlight {
   border-bottom: 1px solid var(--lightgrey);
   cursor: pointer;
-  width: 250px;
+  width: 100%;
 }
 
 .highlight:hover .highlight__image {
