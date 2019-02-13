@@ -181,7 +181,8 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  width: 250px;
+  padding-right: 20px;
+  width: 100%;
 }
 
 .feature:hover .feature__title {
@@ -207,6 +208,10 @@ body {
   grid-template-columns: repeat(auto-fit, 250px);
 }
 
+.highlight__list--narrow {
+  grid-template-columns: repeat(auto-fit, 200px);
+}
+
 .highlight {
   border-bottom: 1px solid var(--lightgrey);
   cursor: pointer;
@@ -227,6 +232,10 @@ body {
   overflow: hidden;
   width: 100%;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.highlight--narrow .highlight__image__wrapper {
+  height: 125px;
 }
 
 .highlight__image {
@@ -259,7 +268,7 @@ body {
   align-items: start;
   display: grid;
   grid-gap: 30px;
-  grid-template-columns: 530px 1fr;
+  grid-template-columns: 430px 1fr;
   overflow: hidden;
   padding: 30px;
 }
