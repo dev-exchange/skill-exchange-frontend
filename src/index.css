@@ -1,15 +1,31 @@
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #fafafd;
-}
-
-html {
-  overflow: hidden;
+:root {
+  --black: #3e3f42;
+  --grey: #9ea0a5;
+  --lightgrey: #ebedf2;
+  --lightestgrey: #fbfbfd;
+  --white: #ffffff;
+  --offwhite: #e0e4cc;
+  --blue: #69d2e7;
+  --teal: #a7dbd8;
+  --orange: #fa6900;
+  --lightorange: #f38630;
+  --lightblue: #f8fafe;
 }
 
 * {
-  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  color: var(--black);
+  font-family: sans-serif;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

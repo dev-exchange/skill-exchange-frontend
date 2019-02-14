@@ -1,0 +1,64 @@
+{
+  "_from": "overlayscrollbars@^1.6.3",
+  "_id": "overlayscrollbars@1.6.3",
+  "_inBundle": false,
+  "_integrity": "sha512-IFE8tBMUC+zbxEz+aQIRxzVDqh7kVO6PYiLxQbHDrEsxcfEIQa/T/ThSBh1SKATTFB15A3h4Ea8L8rM7kWHpAA==",
+  "_location": "/overlayscrollbars",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "overlayscrollbars@^1.6.3",
+    "name": "overlayscrollbars",
+    "escapedName": "overlayscrollbars",
+    "rawSpec": "^1.6.3",
+    "saveSpec": null,
+    "fetchSpec": "^1.6.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/overlayscrollbars/-/overlayscrollbars-1.6.3.tgz",
+  "_shasum": "d3c5f94f9484ed8b023b0457cb6b639274d2e9f3",
+  "_spec": "overlayscrollbars@^1.6.3",
+  "_where": "/Users/miles/development/side/skill-exchange/frontend",
+  "author": {
+    "name": "Rene Haas | KingSora"
+  },
+  "bugs": {
+    "url": "https://github.com/KingSora/OverlayScrollbars/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A javascript scrollbar plugin which hides native scrollbars, provides custom styleable overlay scrollbars and keeps the native functionality and feeling.",
+  "files": [
+    "js/jquery.overlayScrollbars.js",
+    "js/jquery.overlayScrollbars.min.js",
+    "js/OverlayScrollbars.js",
+    "js/OverlayScrollbars.min.js",
+    "css/OverlayScrollbars.css",
+    "css/OverlayScrollbars.min.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "homepage": "https://kingsora.github.io/OverlayScrollbars",
+  "keywords": [
+    "overlayscrollbars",
+    "custom",
+    "scrollbar",
+    "scrollbars",
+    "scroll",
+    "frontend"
+  ],
+  "license": "MIT",
+  "main": "js/OverlayScrollbars.js",
+  "name": "overlayscrollbars",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingSora/OverlayScrollbars.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.6.3"
+}

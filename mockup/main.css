@@ -166,6 +166,7 @@ body {
   height: 100%;
 }
 
+/* CONTENT BODY */
 .content__body {
   padding: 30px;
   overflow-y: scroll;
@@ -366,7 +367,6 @@ body {
   grid-template-columns: 430px 1fr;
   overflow: hidden;
   padding-left: 30px;
-  /* height: 100%; */
 }
 
 .project__list--tiny {
