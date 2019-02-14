@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Skill Exchange - Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="menu">
+        <h3 class="menu__header header">Skill Exchange</h3>
+        <div class="menu__body">
+          <div class="menu__list">
+            <div class="menu__list__header">Menu</div>
+            <div class="menu__list__body">
+              <button class="menu__list__item menu__list__item--active">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+              <button class="menu__list__item">Menu Item</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content__header header">
+          <h3 class="content__header__title">Sign Up</h3>
+          <div class="profile__menu">
+            <img src="https://source.unsplash.com/200x200/?portrait" alt="profile" class="profile__menu__image" />
+          </div>
+        </div>
+        <div class="content__body content__body--flex">
+          <form class="form">
+            <div class="form__header">
+              <h3 class="form__heading">Sign Up</h3>
+            </div>
+            <label class="form__label" for="firstName">
+              First Name
+              <input class="form__input" type="text" name="firstName">
+            </label>
+            <label class="form__label" for="lastName">
+              Last Name
+              <input class="form__input" type="text" name="lastName">
+            </label>
+            <label class="form__label form__label--wide" for="email">
+              EMail Address
+              <input class="form__input" type="email" name="email">
+            </label>
+            <label class="form__label" for="password">
+              Password
+              <input class="form__input" type="password" name="password">
+            </label>
+            <label class="form__label" for="passConfirm">
+              Confirm
+              <input class="form__input" type="password" name="passConfirm">
+            </label>
+            <button class="form__button" type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
