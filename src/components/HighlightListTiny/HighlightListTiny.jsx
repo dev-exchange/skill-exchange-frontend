@@ -25,7 +25,7 @@ export default function HighlightListTiny(props) {
             <p className="highlight__subtitle">{highlight.subtitle}</p>
             <div className="highlight__stats">
               <span className="highlight__stat">{highlight.status}</span>
-              <span className="highlight__stat">{highlight.members}</span>
+              <span className="highlight__stat">{highlight.members.length}</span>
             </div>
           </div>
         </div>

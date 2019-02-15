@@ -18,6 +18,7 @@ const ProjectOverviewStyles = styled.div`
     margin-bottom: 20px;
     padding-bottom: 5px;
     text-transform: uppercase;
+    width: 100%;
   }
 
   /* PROJECT BANNER */
@@ -40,11 +41,16 @@ const ProjectOverviewStyles = styled.div`
     align-items: start;
     display: grid;
     grid-gap: 30px;
-    grid-template-columns: 1fr 175px;
+    grid-template-columns: 460px 175px;
     grid-template-areas:
       'info stat'
       'disc disc';
     padding-top: 30px;
+  }
+
+  .scroll__wrapper {
+    height: calc(275px);
+    overflow-y: scroll;
   }
 
   /* PROJECT INFO */
@@ -159,6 +165,70 @@ const ProjectOverviewStyles = styled.div`
 
   .profile__menu__image {
     height: 100%;
+  }
+
+  /* SKILLS */
+
+  .skill__breakdown {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .piechart__wrapper {
+    width: 80%;
+  }
+
+  .skill__list {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .project__skill {
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  /* MEMBERS */
+  .project__members {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .project__member__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100px);
+    grid-gap: 20px;
+  }
+
+  .project__member {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+  }
+
+  .project__member__avatar__wrapper {
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+  }
+
+  .project__member__avatar {
+    height: 100px;
+    width: 100px;
+  }
+
+  .project__member__name {
+    margin-top: 5px;
+    text-align: center;
   }
 `;
 
