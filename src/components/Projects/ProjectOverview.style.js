@@ -41,7 +41,7 @@ const ProjectOverviewStyles = styled.div`
     align-items: start;
     display: grid;
     grid-gap: 30px;
-    grid-template-columns: 460px 175px;
+    grid-template-columns: minmax(220px, 1fr) 175px;
     grid-template-areas:
       'info stat'
       'disc disc';

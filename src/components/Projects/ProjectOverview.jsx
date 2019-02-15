@@ -25,7 +25,7 @@ export default function ProjectOverview(props) {
             <div className="scroll__wrapper">
               <div className="project__member__list">
                 {project.members.map(member => (
-                  <div className="project__member">
+                  <div key={member.name} className="project__member">
                     <div className="project__member__avatar__wrapper">
                       <img src={member.avatar} alt="" className="project__member__avatar" />
                     </div>
@@ -50,17 +50,17 @@ export default function ProjectOverview(props) {
             <span className="project__stat__name">Membership</span>
             <span className="project__stat__value">{project.membership}</span>
           </div>
-          <div className="skill__breakdown">
+          {/* <div className="skill__breakdown">
             <span className="project__section__title">Project Skills</span>
             <div className="piechart__wrapper">
               <PieChart data={project.skills} />
             </div>
             <div className="skill__list">
               {project.skills.map(skill => (
-                <span className="project__skill">{`- ${skill.title}`}</span>
+                <span key={skill.title} className="project__skill">{`- ${skill.title}`}</span>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="project__discussion">
           <span className="project__section__title">Project Discussion</span>

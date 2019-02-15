@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import faker from 'faker';
+import { withRouter } from 'react-router-dom';
 import { FormStyles } from '../styles';
+import { getState } from '../../StateProvider';
 
-export default function SignIn() {
+function SignIn(props) {
+  const { history } = props;
+  const [{ user }, dispatch] = getState();
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    dispatch({
+      type: 'loginUser',
+      newUser: {
+        name: faker.name.firstName(),
+        avatar: 'https://source.unsplash.com/200x200/?portrait',
+        authed: true
+      }
+    });
+    history.push('/');
+  };
   return (
     <FormStyles>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="form__header">
           <h3 className="form__heading">Sign In</h3>
         </div>
@@ -23,3 +40,5 @@ export default function SignIn() {
     </FormStyles>
   );
 }
+
+export default withRouter(SignIn);
