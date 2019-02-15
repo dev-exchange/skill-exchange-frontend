@@ -50,13 +50,21 @@ const FormStyles = styled.div`
 
   .form__button {
     background: var(--blue);
+    border: none;
     border-radius: 3px;
     color: var(--white);
     cursor: pointer;
     font-size: 0.9rem;
     grid-column: span 2;
     letter-spacing: 1px;
+    outline: none;
     padding: 10px;
+  }
+
+  .form__button:active {
+    box-shadow: inset 1px 1px 2px var(--grey);
+    outline: none;
+    border: none;
   }
 `;
 

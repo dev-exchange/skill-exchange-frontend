@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Header, SignIn, SignUp, ProjectList } from '..';
+import { Header, SignIn, SignUp, SignOut, ProjectList } from '..';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import faker from 'faker';
@@ -104,6 +104,7 @@ function Content(props) {
       <Route path="/skills" component={Skills} />
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
+      <Route path="/logout" component={SignOut} />
     </ContentStyles>
   );
 }

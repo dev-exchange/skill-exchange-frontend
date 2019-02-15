@@ -21,6 +21,7 @@ const MenuStyles = styled.div`
   }
 
   .menu__body {
+    align-content: start;
     border-right: 1px solid var(--lightgrey);
     display: grid;
     grid-auto-flow: row;
@@ -33,7 +34,6 @@ const MenuStyles = styled.div`
   .menu__list {
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
   }
 
   .menu__list__header {
