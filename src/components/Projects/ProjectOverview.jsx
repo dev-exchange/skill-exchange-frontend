@@ -8,6 +8,7 @@ export default function ProjectOverview(props) {
   const timestampFormat = 'ddd, MMM M, YYYY @ h:mm a';
   useEffect(() => {
     document.querySelectorAll('.scroll__wrapper')[1].scrollTop = 0;
+    document.querySelectorAll('.scroll__wrapper')[2].scrollTop = 0;
   });
   return (
     <ProjectOverviewStyles>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Header, SignIn, SignUp, SignOut, ProjectList } from '..';
+import { Header, SignIn, SignUp, SignOut, ProjectList, Profile } from '..';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import faker from 'faker';
@@ -12,14 +12,6 @@ const ContentStyles = styled.div`
   grid-area: content;
   overflow: hidden;
 `;
-
-function Dashboard() {
-  return <div>Dashboard</div>;
-}
-
-function Skills() {
-  return <div>Skills</div>;
-}
 
 function Content(props) {
   const { location } = props;
@@ -99,12 +91,11 @@ function Content(props) {
   return (
     <ContentStyles>
       <Header pathname={location.pathname} title={title} />
-      <Route exact path="/" component={Dashboard} />
       <Route path="/projects" render={() => <ProjectList highlights={highlights} />} />
-      <Route path="/skills" component={Skills} />
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/logout" component={SignOut} />
+      <Route path="/profile" component={Profile} />
     </ContentStyles>
   );
 }

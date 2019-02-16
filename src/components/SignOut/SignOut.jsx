@@ -3,13 +3,10 @@ import { getState } from '../../StateProvider';
 
 function SignOut(props) {
   const { history } = props;
-  const [{ user }, dispatch] = getState();
-  if (user.authed) {
+  const [{ authed }, dispatch] = getState();
+  if (authed) {
     dispatch({
-      type: 'logoutUser',
-      newUser: {
-        authed: false
-      }
+      type: 'logoutUser'
     });
     history.push('/');
     return null;

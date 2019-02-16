@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const FormStyles = styled.div`
-  padding: 30px;
+  /* padding: 30px; */
   align-items: center;
   display: flex;
   height: 100%;
@@ -10,6 +10,7 @@ const FormStyles = styled.div`
   width: 100%;
 
   .form {
+    background: white;
     border: 1px solid var(--lightgrey);
     border-radius: 3px;
     display: grid;
@@ -49,16 +50,24 @@ const FormStyles = styled.div`
   }
 
   .form__button {
+    align-items: center;
     background: var(--blue);
     border: none;
     border-radius: 3px;
     color: var(--white);
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    height: 40px;
     font-size: 0.9rem;
     grid-column: span 2;
     letter-spacing: 1px;
     outline: none;
-    padding: 10px;
+    /* padding: 10px; */
+  }
+
+  .loading__icon {
+    height: 50%;
   }
 
   .form__button:active {

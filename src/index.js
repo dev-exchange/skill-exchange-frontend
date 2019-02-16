@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import '../node_modules/modern-normalize/modern-normalize.css';
+import './assets/nprogress.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
