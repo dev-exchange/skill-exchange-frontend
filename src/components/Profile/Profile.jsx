@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getState } from '../../StateProvider';
 import ProfileEdit from './ProfileEdit';
+import { getState } from '../../StateProvider';
+import bannerBackground from '../../assets/images/dust_scratches.png';
 
 const ProfileStyles = styled.div`
   height: 100%;
@@ -19,9 +20,53 @@ const ProfileStyles = styled.div`
 
   .profile__banner {
     border-radius: 3px 3px 0 0;
-    height: 300px;
+    height: 150px;
     overflow: hidden;
     width: 100%;
+    opacity: 0.5;
+    z-index: -1;
+    position: relative;
+
+    background: linear-gradient(186deg, var(--blue), var(--lightorange));
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 10s ease infinite;
+    -moz-animation: AnimationName 10s ease infinite;
+    animation: AnimationName 10s ease infinite;
+
+    @-webkit-keyframes AnimationName {
+      0% {
+        background-position: 49% 0%;
+      }
+      50% {
+        background-position: 52% 100%;
+      }
+      100% {
+        background-position: 49% 0%;
+      }
+    }
+    @-moz-keyframes AnimationName {
+      0% {
+        background-position: 49% 0%;
+      }
+      50% {
+        background-position: 52% 100%;
+      }
+      100% {
+        background-position: 49% 0%;
+      }
+    }
+    @keyframes AnimationName {
+      0% {
+        background-position: 49% 0%;
+      }
+      50% {
+        background-position: 52% 100%;
+      }
+      100% {
+        background-position: 49% 0%;
+      }
+    }
   }
 
   .profile__banner__image {
@@ -47,6 +92,14 @@ const ProfileStyles = styled.div`
     margin-bottom: 20px;
     overflow: hidden;
     width: 150px;
+  }
+
+  .profile__user__name {
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-top: -60px;
+    margin-left: 190px;
+    position: absolute;
   }
 
   .profile__avatar__image {
@@ -109,76 +162,81 @@ const ProfileStyles = styled.div`
 `;
 
 function Profile(props) {
+  const { location, history } = props;
+  const [{ user, authed }] = getState();
+  useEffect(() => {
+    if (!authed) {
+      history.push('/');
+    }
+  });
   const [edit, toggleEdit] = useState(false);
-  const { location } = props;
   return (
     <ProfileStyles>
-      <ProfileEdit edit={edit} toggleEdit={toggleEdit} />
-      <div className="profile__header">
-        <div className="profile__banner">
-          <img
-            src="https://source.unsplash.com/800x800/?waves"
-            alt=""
-            className="profile__banner__image"
-          />
-        </div>
-        <div className="profile__header__footer">
-          <div className="profile__avatar__wrapper">
-            <img
-              src="https://source.unsplash.com/400x400/?portrait"
-              alt=""
-              className="profile__avatar__image"
-            />
+      {authed ? (
+        <React.Fragment>
+          {edit ? <ProfileEdit edit={edit} toggleEdit={toggleEdit} user={user} /> : null}
+          <div className="profile__header">
+            <div className="profile__banner" />
+            <div className="profile__header__footer">
+              <h2 className="profile__user__name">{`${user.firstName} ${user.lastName}`}</h2>
+              <div className="profile__avatar__wrapper">
+                <img src={user.avatar} alt="" className="profile__avatar__image" />
+              </div>
+              <div className="profile__header__navigation">
+                <Link
+                  to="/profile/about"
+                  className={
+                    location.pathname === '/profile/about'
+                      ? 'profile__link profile__link--active'
+                      : 'profile__link'
+                  }
+                >
+                  About
+                </Link>
+                <Link
+                  to="/profile/projects"
+                  className={
+                    location.pathname === '/profile/projects'
+                      ? 'profile__link profile__link--active'
+                      : 'profile__link'
+                  }
+                >
+                  Projects
+                </Link>
+                <Link
+                  to="/profile/skills"
+                  className={
+                    location.pathname === '/profile/skills'
+                      ? 'profile__link profile__link--active'
+                      : 'profile__link'
+                  }
+                >
+                  Skills
+                </Link>
+                <Link
+                  to="/profile/contact"
+                  className={
+                    location.pathname === '/profile/contact'
+                      ? 'profile__link profile__link--active'
+                      : 'profile__link'
+                  }
+                >
+                  Contact
+                </Link>
+              </div>
+              <div className="profile__controls">
+                <button
+                  onClick={() => toggleEdit(!edit)}
+                  type="button"
+                  className="profile__control"
+                >
+                  Edit Profile
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="profile__header__navigation">
-            <Link
-              to="/profile/about"
-              className={
-                location.pathname === '/profile/about'
-                  ? 'profile__link profile__link--active'
-                  : 'profile__link'
-              }
-            >
-              About
-            </Link>
-            <Link
-              to="/profile/projects"
-              className={
-                location.pathname === '/profile/projects'
-                  ? 'profile__link profile__link--active'
-                  : 'profile__link'
-              }
-            >
-              Projects
-            </Link>
-            <Link
-              to="/profile/skills"
-              className={
-                location.pathname === '/profile/skills'
-                  ? 'profile__link profile__link--active'
-                  : 'profile__link'
-              }
-            >
-              Skills
-            </Link>
-            <Link
-              to="/profile/contact"
-              className={
-                location.pathname === '/profile/contact'
-                  ? 'profile__link profile__link--active'
-                  : 'profile__link'
-              }
-            >
-              Contact
-            </Link>
-          </div>
-          <div className="profile__controls">
-            <button onClick={() => toggleEdit(!edit)} type="button" className="profile__control">
-              Edit Profile
-            </button>
-          </div>
-        </div>
-      </div>
+        </React.Fragment>
+      ) : null}
     </ProfileStyles>
   );
 }

@@ -3,13 +3,11 @@ import { withRouter } from 'react-router-dom';
 import nprogress from 'nprogress';
 import { getState } from '../../StateProvider';
 import { FormStyles } from '../styles';
-
-import '../../assets/nprogress.css';
 import savingIcon from '../../assets/loaders/svg-loaders/oval.svg';
 
 function SignUp(props) {
   const { history } = props;
-  const [{ loading }, dispatch] = getState();
+  const [{ loading, users }, dispatch] = getState();
   const [form, setValues] = useState({
     firstName: '',
     lastName: '',
@@ -19,6 +17,27 @@ function SignUp(props) {
   });
   const handleSubmit = ev => {
     ev.preventDefault();
+    if (form.firstName === '') {
+      dispatch({ type: 'setAlert', message: 'First name is required' });
+      return;
+    }
+    if (form.email === '') {
+      dispatch({ type: 'setAlert', message: 'Email Address is required' });
+      return;
+    }
+    if (form.password === '') {
+      dispatch({ type: 'setAlert', message: 'Password is required' });
+      return;
+    }
+    if (form.password !== form.passConfirm) {
+      dispatch({ type: 'setAlert', message: 'Passwords do not match' });
+      return;
+    }
+    const matchedUsers = users.filter(user => user.email === form.email);
+    if (matchedUsers.length > 0) {
+      dispatch({ type: 'setAlert', message: 'An account with that email address already exists' });
+      return;
+    }
     nprogress.start();
     dispatch({
       type: 'setLoading',
@@ -32,15 +51,15 @@ function SignUp(props) {
           firstName: form.firstName,
           lastName: form.lastName,
           email: form.email,
-          avatar: 'https://source.unsplash.com/200x200/?portrait',
-          authed: true
+          password: form.password,
+          avatar: 'https://source.unsplash.com/200x200/?portrait'
         }
       });
       dispatch({
         type: 'setLoading',
         newLoading: { ...loading, loading: false }
       });
-      history.push('/');
+      history.push('/profile/about');
       nprogress.done();
     }, 2000);
   };

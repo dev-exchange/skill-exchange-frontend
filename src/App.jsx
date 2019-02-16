@@ -1,39 +1,55 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import faker from 'faker';
-import { Content, Menu } from './components';
+import uuid from 'uuid/v4';
+import { Content, Menu, Alerter } from './components';
 import { StateProvider } from './StateProvider';
 
 const App = () => {
   const initialState = {
-    user: {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      email: faker.internet.email(),
-      avatar: 'https://source.unsplash.com/200x200/?portrait',
-      authed: true
-    },
-    loading: { loading: false, sectionName: undefined }
+    authed: false,
+    user: undefined,
+    loading: { loading: false, sectionName: undefined },
+    users: [],
+    alert: { message: undefined, show: false }
   };
+
   const reducer = (state, action) => {
     switch (action.type) {
+      case 'clearAlert':
+        return {
+          ...state,
+          alert: { show: false, message: undefined }
+        };
       case 'loginUser':
         return {
           ...state,
-          user: action.newUser
+          user: action.newUser,
+          authed: true
         };
 
       case 'logoutUser':
         return {
           ...state,
-          user: action.newUser
+          user: undefined,
+          authed: false
         };
 
-      case 'registerUser':
+      case 'registerUser': {
+        const { newUser } = action;
+        newUser.id = uuid();
         return {
           ...state,
-          user: action.newUser
+          user: newUser,
+          users: [...state.users, newUser],
+          authed: true
+        };
+      }
+
+      case 'setAlert':
+        return {
+          ...state,
+          alert: { show: true, message: action.message }
         };
 
       case 'setLoading':
@@ -41,6 +57,17 @@ const App = () => {
           ...state,
           loading: action.newLoading
         };
+
+      case 'updateUser': {
+        const { users } = state;
+        const { updatedUser } = action;
+        const filteredUsers = users.filter(user => user.id !== updatedUser.id);
+        return {
+          ...state,
+          user: updatedUser,
+          users: [...filteredUsers, updatedUser]
+        };
+      }
 
       default:
         return state;
@@ -51,6 +78,7 @@ const App = () => {
     <StateProvider initialState={initialState} reducer={reducer}>
       <Router>
         <div className="app">
+          <Alerter />
           <Menu />
           <Content />
         </div>

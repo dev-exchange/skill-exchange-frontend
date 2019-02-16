@@ -6,11 +6,11 @@ import { getState } from '../../StateProvider';
 
 function Header(props) {
   const { title } = props;
-  const [{ user }] = getState();
+  const [{ user, authed }] = getState();
   return (
     <HeaderStyles>
       <h3 className="content__header__title">{title}</h3>
-      {user.authed ? (
+      {authed ? (
         <div className="profile__menu">
           <img src={user.avatar} alt="profile" className="profile__menu__image" />
         </div>

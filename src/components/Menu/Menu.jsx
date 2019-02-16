@@ -8,14 +8,14 @@ import { getState } from '../../StateProvider';
 function Menu(props) {
   const { location } = props;
   const { pathname } = location;
-  const [{ user }, dispatch] = getState();
+  const [{ user, authed }, dispatch] = getState();
   const menus = [
     {
       name: 'Menu',
       items: [
         { name: 'Dashboard', pathname: '/' },
-        { name: 'Projects', pathname: '/projects' },
-        { name: 'Skills', pathname: '/skills' }
+        { name: 'Projects', pathname: '/projects' }
+        // { name: 'Skills', pathname: '/skills' }
       ],
       visibility: 'all'
     },
@@ -28,8 +28,8 @@ function Menu(props) {
       name: 'Profile',
       items: [
         { name: 'My Profile', pathname: '/profile/about' },
-        { name: 'Messages', pathname: '/messages' },
-        { name: 'Tasks', pathname: '/tasks' },
+        // { name: 'Messages', pathname: '/messages' },
+        // { name: 'Tasks', pathname: '/tasks' },
         { name: 'Sign Out', pathname: '/logout' }
       ],
       visibility: 'auth'
@@ -43,10 +43,10 @@ function Menu(props) {
           if (menu.visibility === 'all') {
             return <MenuList key={menu.name} menu={menu} pathname={pathname} />;
           }
-          if (user.authed && menu.visibility === 'auth') {
+          if (authed && menu.visibility === 'auth') {
             return <MenuList key={menu.name} menu={menu} pathname={pathname} />;
           }
-          if (!user.authed && menu.visibility === 'no_auth') {
+          if (!authed && menu.visibility === 'no_auth') {
             return <MenuList key={menu.name} menu={menu} pathname={pathname} />;
           }
           return null;
