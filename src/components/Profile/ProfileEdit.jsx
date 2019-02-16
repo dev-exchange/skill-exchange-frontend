@@ -168,6 +168,21 @@ export default function ProfileEdit(props) {
         return;
       }
     }
+    if (section === 'security') {
+      console.log('saving sec');
+      if (securityForm.currentPass !== user.password) {
+        dispatch({ type: 'setAlert', message: 'Your current password is incorrect' });
+        return;
+      }
+      if (securityForm.newPassword === '') {
+        dispatch({ type: 'setAlert', message: 'New password cannot be blank' });
+        return;
+      }
+      if (securityForm.newPassConf !== securityForm.newPassword) {
+        dispatch({ type: 'setAlert', message: 'New passwords do not match' });
+        return;
+      }
+    }
     nprogress.start();
     dispatch({
       type: 'setLoading',
