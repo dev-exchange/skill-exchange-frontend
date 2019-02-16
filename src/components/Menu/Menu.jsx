@@ -27,7 +27,7 @@ function Menu(props) {
     {
       name: 'Profile',
       items: [
-        { name: 'My Profile', pathname: '/profile' },
+        { name: 'My Profile', pathname: '/profile/about' },
         { name: 'Messages', pathname: '/messages' },
         { name: 'Tasks', pathname: '/tasks' },
         { name: 'Sign Out', pathname: '/logout' }

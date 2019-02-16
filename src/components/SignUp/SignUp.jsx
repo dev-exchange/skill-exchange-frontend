@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import nprogress from 'nprogress';
 import { getState } from '../../StateProvider';
 import { FormStyles } from '../styles';
 
+import '../../assets/nprogress.css';
+import savingIcon from '../../assets/loaders/svg-loaders/oval.svg';
+
 function SignUp(props) {
   const { history } = props;
-  const [, dispatch] = getState();
+  const [{ loading }, dispatch] = getState();
   const [form, setValues] = useState({
     firstName: '',
     lastName: '',
@@ -15,17 +19,30 @@ function SignUp(props) {
   });
   const handleSubmit = ev => {
     ev.preventDefault();
+    nprogress.start();
     dispatch({
-      type: 'registerUser',
-      newUser: {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        email: form.email,
-        avatar: 'https://source.unsplash.com/200x200/?portrait',
-        authed: true
-      }
+      type: 'setLoading',
+      newLoading: { ...loading, loading: true }
     });
-    history.push('/');
+
+    setTimeout(() => {
+      dispatch({
+        type: 'registerUser',
+        newUser: {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          avatar: 'https://source.unsplash.com/200x200/?portrait',
+          authed: true
+        }
+      });
+      dispatch({
+        type: 'setLoading',
+        newLoading: { ...loading, loading: false }
+      });
+      history.push('/');
+      nprogress.done();
+    }, 2000);
   };
   const handleChange = ev => {
     setValues({
@@ -90,7 +107,7 @@ function SignUp(props) {
           />
         </label>
         <button className="form__button" type="submit">
-          Sign Up
+          {loading.loading ? <img className="loading__icon" alt="" src={savingIcon} /> : 'Sign Up'}
         </button>
       </form>
     </FormStyles>

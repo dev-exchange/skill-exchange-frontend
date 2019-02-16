@@ -7,7 +7,11 @@ const paths = {
   '/profile': 'My Profile',
   '/messages': 'My Messages',
   '/tasks': 'My Tasks',
-  '/logout': 'Dashboard'
+  '/logout': 'Dashboard',
+  '/profile/about': 'My Profile',
+  '/profile/skills': 'My Profile',
+  '/profile/projects': 'My Profile',
+  '/profile/contact': 'My Profile'
 };
 
 export default paths;
