@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ProjectListStyles from './ProjectList.style';
 import { HighlightListTiny, ProjectOverview } from '..';
+import { getState } from '../../StateProvider';
 
 export default function ProjectList(props) {
-  const { highlights } = props;
-  const [active, setActive] = useState(highlights[0]);
+  const { type } = props;
+  const [{ highlights, users }, dispatch] = getState();
+  const items = {
+    projects: highlights,
+    users
+  };
+  const [active, setActive] = useState(items[type][0]);
   return (
     <ProjectListStyles>
       <div className="scroll__wrapper">
-        <HighlightListTiny highlights={highlights} setActive={setActive} active={active} />
+        <HighlightListTiny type={type} items={items[type]} setActive={setActive} active={active} />
       </div>
-      <div className="scroll__wrapper">
-        <ProjectOverview project={active} />
-      </div>
+      {type === 'projects' ? (
+        <div className="scroll__wrapper">
+          <ProjectOverview project={active} />
+        </div>
+      ) : null}
     </ProjectListStyles>
   );
 }

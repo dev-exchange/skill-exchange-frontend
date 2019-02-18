@@ -8,18 +8,21 @@
   --blue: #69d2e7;
   --teal: #a7dbd8;
   --orange: #fa6900;
+  --pink: #f05d5e;
   --lightorange: #f38630;
   --lightblue: #f8fafe;
 }
 
 * {
   box-sizing: border-box;
+  /* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Open Sans', sans-serif;
 }
 
 html,
 body {
   color: var(--black);
-  font-family: sans-serif;
   height: 100%;
   overflow: hidden;
   width: 100%;

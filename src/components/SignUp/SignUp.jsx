@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import nprogress from 'nprogress';
+import uuid from 'uuid/v4';
 import { getState } from '../../StateProvider';
 import { FormStyles } from '../styles';
 import savingIcon from '../../assets/loaders/svg-loaders/oval.svg';
@@ -45,21 +46,23 @@ function SignUp(props) {
     });
 
     setTimeout(() => {
+      const newUser = {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        password: form.password,
+        id: uuid(),
+        avatar: 'https://source.unsplash.com/200x200/?portrait'
+      };
       dispatch({
         type: 'registerUser',
-        newUser: {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          password: form.password,
-          avatar: 'https://source.unsplash.com/200x200/?portrait'
-        }
+        newUser
       });
       dispatch({
         type: 'setLoading',
         newLoading: { ...loading, loading: false }
       });
-      history.push('/profile/about');
+      history.push(`/profile/about`);
       nprogress.done();
     }, 2000);
   };

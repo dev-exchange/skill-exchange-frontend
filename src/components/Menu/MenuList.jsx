@@ -14,7 +14,7 @@ export default function MenuList(props) {
               : item.pathname;
           const pathRoot =
             pathname.lastIndexOf('/') > 1
-              ? pathname.substring(0, pathname.lastIndexOf('/'))
+              ? pathname.substring(0, pathname.substring(1, pathname.length).indexOf('/') + 1)
               : pathname;
           return (
             <Link

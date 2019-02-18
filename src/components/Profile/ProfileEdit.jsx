@@ -83,16 +83,16 @@ const ProfileEditStyles = styled.div`
 
 export default function ProfileEdit(props) {
   const { edit, toggleEdit } = props;
-  const [{ loading, user }, dispatch] = getState();
+  const [{ loading, currentUser }, dispatch] = getState();
 
   // STATES
 
   // BASIC INFO SECTION
   const [basicForm, setBasicValues] = useState({
-    firstName: user.firstName || '',
-    lastName: user.lastName || '',
-    email: user.email || '',
-    phone: user.phone || ''
+    firstName: currentUser.firstName || '',
+    lastName: currentUser.lastName || '',
+    email: currentUser.email || '',
+    phone: currentUser.phone || ''
   });
 
   // SECURITY SECTION
@@ -144,7 +144,7 @@ export default function ProfileEdit(props) {
           case 'basics': {
             dispatch({
               type: 'updateUser',
-              updatedUser: { ...user, ...basicForm }
+              updatedUser: { ...currentUser, ...basicForm }
             });
             break;
           }
@@ -169,8 +169,7 @@ export default function ProfileEdit(props) {
       }
     }
     if (section === 'security') {
-      console.log('saving sec');
-      if (securityForm.currentPass !== user.password) {
+      if (securityForm.currentPass !== currentUser.password) {
         dispatch({ type: 'setAlert', message: 'Your current password is incorrect' });
         return;
       }
@@ -201,7 +200,7 @@ export default function ProfileEdit(props) {
         case 'basics': {
           dispatch({
             type: 'updateUser',
-            updatedUser: { ...user, ...basicForm }
+            updatedUser: { ...currentUser, ...basicForm }
           });
           const sections = changed.sections.filter(sectionName => sectionName !== section);
           setChanged({ changed: sections.length > 0, sections: [...sections] });
@@ -210,7 +209,7 @@ export default function ProfileEdit(props) {
         case 'security': {
           dispatch({
             type: 'updateUser',
-            updatedUser: { ...user, password: securityForm.newPassword }
+            updatedUser: { ...currentUser, password: securityForm.newPassword }
           });
           setSecurityValues({
             currentPass: '',
