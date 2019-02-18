@@ -41,11 +41,14 @@ const FormStyles = styled.div`
   }
 
   .form__input {
+    align-items: center;
     border: 1px solid var(--lightgrey);
     border-radius: 3px;
     color: var(--black);
+    display: flex;
     font-size: 1rem;
-    padding: 5px;
+    height: 2.5rem;
+    padding: 0 5px;
     outline: none;
   }
 

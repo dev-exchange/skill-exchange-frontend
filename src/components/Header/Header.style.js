@@ -16,19 +16,6 @@ const HeaderStyles = styled.div`
   .content__header__title {
     margin: 0;
   }
-
-  .profile__menu {
-    border: 3px solid var(--blue);
-    border-radius: 50%;
-    cursor: pointer;
-    height: 50px;
-    overflow: hidden;
-    width: 50px;
-  }
-
-  .profile__menu__image {
-    height: 100%;
-  }
 `;
 
 export default HeaderStyles;

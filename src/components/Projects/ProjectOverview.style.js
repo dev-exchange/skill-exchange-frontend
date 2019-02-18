@@ -154,19 +154,6 @@ const ProjectOverviewStyles = styled.div`
     padding: 0 50px;
   }
 
-  .profile__menu {
-    border: 3px solid var(--blue);
-    border-radius: 50%;
-    cursor: pointer;
-    height: 50px;
-    overflow: hidden;
-    width: 50px;
-  }
-
-  .profile__menu__image {
-    height: 100%;
-  }
-
   /* SKILLS */
 
   .skill__breakdown {
@@ -213,18 +200,21 @@ const ProjectOverviewStyles = styled.div`
     width: 100px;
   }
 
-  .project__member__avatar__wrapper {
-    border: 2px solid var(--blue);
+  /* .project__member__avatar__wrapper {
+    border: 3px solid var(--pink);
     border-radius: 50%;
-    overflow: hidden;
-    width: 100%;
+    cursor: pointer;
     height: 100px;
+    overflow: hidden;
+    outline: none;
+    padding: 0;
+    width: 100px;
   }
 
   .project__member__avatar {
     height: 100px;
     width: 100px;
-  }
+  } */
 
   .project__member__name {
     margin-top: 5px;

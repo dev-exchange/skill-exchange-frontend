@@ -3,10 +3,37 @@ import React from 'react';
 import HighlightListTinyStyles from './HighlightListTiny.style';
 
 export default function HighlightListTiny(props) {
-  const { highlights, setActive, active } = props;
+  const { items, setActive, active, type } = props;
+  const itemDatas = items.map(item => {
+    switch (type) {
+      case 'projects':
+        return {
+          title: item.title,
+          subtitle: item.subtitle,
+          status: item.status,
+          members: item.members,
+          imageSrc: item.imageSrc
+        };
+      case 'users':
+        return {
+          title: `${item.firstName} ${item.lastName}`,
+          subtitle: item.position,
+          status: item.firstName,
+          members: [],
+          imageSrc: item.avatar
+        };
+      default:
+        return {
+          title: 'title',
+          subtitle: 'subtitle',
+          status: 'status',
+          members: []
+        };
+    }
+  });
   return (
     <HighlightListTinyStyles>
-      {highlights.map(highlight => (
+      {itemDatas.map(highlight => (
         // eslint-disable-next-line
         <div
           onClick={() => setActive(highlight)}

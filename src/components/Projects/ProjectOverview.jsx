@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import Moment from 'react-moment';
-import PieChart from 'react-minimal-pie-chart';
+import { getState } from '../../StateProvider';
 import ProjectOverviewStyles from './ProjectOverview.style';
+import { ProfileMenu } from '..';
 
 export default function ProjectOverview(props) {
-  const { project } = props;
+  const { project, history } = props;
   const timestampFormat = 'ddd, MMM M, YYYY @ h:mm a';
   useEffect(() => {
     document.querySelectorAll('.scroll__wrapper')[1].scrollTop = 0;
@@ -26,11 +27,9 @@ export default function ProjectOverview(props) {
             <div className="scroll__wrapper">
               <div className="project__member__list">
                 {project.members.map(member => (
-                  <div key={member.name} className="project__member">
-                    <div className="project__member__avatar__wrapper">
-                      <img src={member.avatar} alt="" className="project__member__avatar" />
-                    </div>
-                    <span className="project__member__name">{member.name}</span>
+                  <div key={member.firstName} className="project__member">
+                    <ProfileMenu key={member.id} user={member} size={100} />
+                    <span className="project__member__name">{member.firstName}</span>
                   </div>
                 ))}
               </div>
@@ -71,11 +70,9 @@ export default function ProjectOverview(props) {
             .map(comment => (
               <div key={comment.timestamp} className="comment">
                 <div className="comment__header">
-                  <div className="profile__menu">
-                    <img src={comment.user.avatar} alt="profile" className="profile__menu__image" />
-                  </div>
+                  <ProfileMenu user={comment.user} size={50} />
                   <div className="comment__details">
-                    <span className="comment__user__name">{comment.user.name}</span>
+                    <span className="comment__user__name">{comment.user.firstName}</span>
                     <span className="comment__timestamp">
                       <Moment format={timestampFormat}>{comment.timestamp}</Moment>
                     </span>
@@ -90,15 +87,9 @@ export default function ProjectOverview(props) {
                       .map(reply => (
                         <div key={reply.timestamp} className="comment">
                           <div className="comment__header">
-                            <div className="profile__menu">
-                              <img
-                                src={reply.user.avatar}
-                                alt="profile"
-                                className="profile__menu__image"
-                              />
-                            </div>
+                            <ProfileMenu user={reply.user} size={50} />
                             <div className="comment__details">
-                              <span className="comment__user__name">{reply.user.name}</span>
+                              <span className="comment__user__name">{reply.user.firstName}</span>
                               <span className="comment__timestamp">
                                 <Moment format={timestampFormat}>{reply.timestamp}</Moment>
                               </span>

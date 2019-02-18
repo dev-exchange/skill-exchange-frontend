@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ProfileEdit from './ProfileEdit';
 import { getState } from '../../StateProvider';
-import bannerBackground from '../../assets/images/dust_scratches.png';
 
 const ProfileStyles = styled.div`
   height: 100%;
@@ -82,7 +81,7 @@ const ProfileStyles = styled.div`
   .profile__avatar__wrapper {
     align-self: flex-end;
     background: white;
-    border: 5px solid var(--blue);
+    border: 3px solid var(--pink);
     border-radius: 50%;
     height: 150px;
     flex-shrink: 0;
@@ -94,16 +93,16 @@ const ProfileStyles = styled.div`
     width: 150px;
   }
 
+  .profile__avatar__image {
+    width: 100%;
+  }
+
   .profile__user__name {
     color: var(--white);
     letter-spacing: 1px;
     margin-top: -60px;
     margin-left: 190px;
     position: absolute;
-  }
-
-  .profile__avatar__image {
-    width: 100%;
   }
 
   .profile__header__navigation {
@@ -162,19 +161,23 @@ const ProfileStyles = styled.div`
 `;
 
 function Profile(props) {
-  const { location, history } = props;
-  const [{ user, authed }] = getState();
-  useEffect(() => {
-    if (!authed) {
-      history.push('/');
-    }
-  });
+  const { location, history, match } = props;
+  const [{ users, currentUser }] = getState();
   const [edit, toggleEdit] = useState(false);
+  let user;
+  if (location.pathname.indexOf('/profile') > -1) {
+    user = currentUser;
+  } else {
+    [user] = users.filter(userObject => userObject.id === match.params.id);
+  }
+  if (user === undefined || user.id === null) {
+    history.push('/');
+  }
   return (
     <ProfileStyles>
-      {authed ? (
+      {user === undefined ? null : (
         <React.Fragment>
-          {edit ? <ProfileEdit edit={edit} toggleEdit={toggleEdit} user={user} /> : null}
+          {edit ? <ProfileEdit edit={edit} toggleEdit={toggleEdit} /> : null}
           <div className="profile__header">
             <div className="profile__banner" />
             <div className="profile__header__footer">
@@ -184,9 +187,9 @@ function Profile(props) {
               </div>
               <div className="profile__header__navigation">
                 <Link
-                  to="/profile/about"
+                  to={user.id === currentUser.id ? '/profile/about' : `/users/${user.id}/about`}
                   className={
-                    location.pathname === '/profile/about'
+                    location.pathname.indexOf('about') > -1
                       ? 'profile__link profile__link--active'
                       : 'profile__link'
                   }
@@ -194,9 +197,11 @@ function Profile(props) {
                   About
                 </Link>
                 <Link
-                  to="/profile/projects"
+                  to={
+                    user.id === currentUser.id ? '/profile/projects' : `/users/${user.id}/projects`
+                  }
                   className={
-                    location.pathname === '/profile/projects'
+                    location.pathname.indexOf('projects') > -1
                       ? 'profile__link profile__link--active'
                       : 'profile__link'
                   }
@@ -204,9 +209,9 @@ function Profile(props) {
                   Projects
                 </Link>
                 <Link
-                  to="/profile/skills"
+                  to={user.id === currentUser.id ? '/profile/skills' : `/users/${user.id}/skills`}
                   className={
-                    location.pathname === '/profile/skills'
+                    location.pathname.indexOf('skills') > -1
                       ? 'profile__link profile__link--active'
                       : 'profile__link'
                   }
@@ -214,9 +219,9 @@ function Profile(props) {
                   Skills
                 </Link>
                 <Link
-                  to="/profile/contact"
+                  to={user.id === currentUser.id ? '/profile/contact' : `/users/${user.id}/contact`}
                   className={
-                    location.pathname === '/profile/contact'
+                    location.pathname.indexOf('contact') > -1
                       ? 'profile__link profile__link--active'
                       : 'profile__link'
                   }
@@ -224,19 +229,21 @@ function Profile(props) {
                   Contact
                 </Link>
               </div>
-              <div className="profile__controls">
-                <button
-                  onClick={() => toggleEdit(!edit)}
-                  type="button"
-                  className="profile__control"
-                >
-                  Edit Profile
-                </button>
-              </div>
+              {user.id === currentUser.id ? (
+                <div className="profile__controls">
+                  <button
+                    onClick={() => toggleEdit(!edit)}
+                    type="button"
+                    className="profile__control"
+                  >
+                    Edit Profile
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         </React.Fragment>
-      ) : null}
+      )}
     </ProfileStyles>
   );
 }

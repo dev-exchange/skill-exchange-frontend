@@ -8,14 +8,14 @@ import { getState } from '../../StateProvider';
 function Menu(props) {
   const { location } = props;
   const { pathname } = location;
-  const [{ user, authed }, dispatch] = getState();
+  const [{ authed, currentUser }] = getState();
   const menus = [
     {
       name: 'Menu',
       items: [
         { name: 'Dashboard', pathname: '/' },
-        { name: 'Projects', pathname: '/projects' }
-        // { name: 'Skills', pathname: '/skills' }
+        { name: 'Projects', pathname: '/projects' },
+        { name: 'Users', pathname: '/users' }
       ],
       visibility: 'all'
     },
@@ -27,9 +27,7 @@ function Menu(props) {
     {
       name: 'Profile',
       items: [
-        { name: 'My Profile', pathname: '/profile/about' },
-        // { name: 'Messages', pathname: '/messages' },
-        // { name: 'Tasks', pathname: '/tasks' },
+        { name: 'My Profile', pathname: `/profile/about` },
         { name: 'Sign Out', pathname: '/logout' }
       ],
       visibility: 'auth'
