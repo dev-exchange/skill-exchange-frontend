@@ -16,6 +16,18 @@ const OverViewListStyles = styled.div`
   > .scroll__wrapper:last-child {
     border-left: 1px solid var(--lightgrey);
   }
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 250px 1fr;
+  }
+  @media only screen and (max-width: 850px) {
+    grid-template-columns: 175px 1fr;
+  }
+  @media only screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+    .scroll__wrapper:first-child {
+      display: none;
+    }
+  }
 `;
 
 export default OverViewListStyles;

@@ -111,6 +111,30 @@ const UserOverviewStyles = styled.div`
     font-weight: 400;
     text-align: right;
   }
+
+  @media only screen and (max-width: 1000px) {
+    .project__details {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'info'
+        'stat';
+    }
+  }
+  @media only screen and (max-width: 850px) {
+    .profile__avatar__wrapper {
+      height: 100px;
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 100px;
+    }
+
+    .profile__header {
+      height: 75px;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    grid-column: 1;
+  }
 `;
 
 export default UserOverviewStyles;

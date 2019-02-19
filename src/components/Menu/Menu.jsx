@@ -8,7 +8,7 @@ import { getState } from '../../StateProvider';
 function Menu(props) {
   const { location } = props;
   const { pathname } = location;
-  const [{ authed, currentUser }] = getState();
+  const [{ authed, menuOpen }] = getState();
   const menus = [
     {
       name: 'Menu',
@@ -34,7 +34,7 @@ function Menu(props) {
     }
   ];
   return (
-    <MenuStyles>
+    <MenuStyles menuOpen={menuOpen}>
       <h3 className="menu__header header">Skill Exchange</h3>
       <div className="menu__body">
         {menus.map(menu => {

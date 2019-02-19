@@ -5,6 +5,8 @@ const MenuStyles = styled.div`
   flex-direction: column;
   grid-area: menu;
   overflow: hidden;
+  background: white;
+  transition: left 250ms ease-out;
 
   .menu__header {
     padding-left: 15px;
@@ -16,7 +18,7 @@ const MenuStyles = styled.div`
     position: absolute;
     height: 40px;
     top: 20px;
-    left: 199px;
+    left: 174px;
     width: 1px;
   }
 
@@ -85,6 +87,21 @@ const MenuStyles = styled.div`
     background: var(--blue);
     color: var(--white);
     cursor: default;
+  }
+  @media only screen and (max-width: 850px) {
+    position: fixed;
+    left: ${props => (props.menuOpen ? 0 : '-180px')};
+    z-index: 2000;
+    height: 100vh;
+    width: 176px;
+
+    .menu__header {
+      display: none;
+    }
+
+    .menu__header::after {
+      display: none;
+    }
   }
 `;
 
