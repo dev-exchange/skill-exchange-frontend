@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Header, SignIn, SignUp, SignOut, ProjectList, Profile } from '..';
+import { Header, SignIn, SignUp, SignOut, OverviewList, Profile } from '..';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { pathTranslations } from '../../constants';
-import { getState } from '../../StateProvider';
 
 const ContentStyles = styled.div`
   display: flex;
@@ -16,15 +15,16 @@ const ContentStyles = styled.div`
 function Content(props) {
   const { location } = props;
   const title = pathTranslations[location.pathname];
-  const [{ highlights, users }] = getState();
   useEffect(() => {
-    document.title = `Skill Exchange - ${title}`;
+    if (title !== undefined) {
+      document.title = `${title} - SE`;
+    }
   });
   return (
     <ContentStyles>
       <Header pathname={location.pathname} title={title} />
-      <Route path="/projects" render={() => <ProjectList type="projects" />} />
-      <Route exact path="/users" render={() => <ProjectList type="users" />} />
+      <Route path="/projects" render={() => <OverviewList type="projects" />} />
+      <Route exact path="/users" render={() => <OverviewList type="users" />} />
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/logout" component={SignOut} />

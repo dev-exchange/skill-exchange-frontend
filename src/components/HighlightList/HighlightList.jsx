@@ -1,26 +1,21 @@
 import React from 'react';
 
-import HighlightListTinyStyles from './HighlightListTiny.style';
+import HighlightListStyles from './HighlightList.style';
 
-export default function HighlightListTiny(props) {
+export default function HighlightList(props) {
   const { items, setActive, active, type } = props;
   const itemDatas = items.map(item => {
     switch (type) {
       case 'projects':
-        return {
-          title: item.title,
-          subtitle: item.subtitle,
-          status: item.status,
-          members: item.members,
-          imageSrc: item.imageSrc
-        };
+        return item;
       case 'users':
         return {
           title: `${item.firstName} ${item.lastName}`,
           subtitle: item.position,
-          status: item.firstName,
+          status: item.location,
           members: [],
-          imageSrc: item.avatar
+          imageSrc: item.avatar,
+          ...item
         };
       default:
         return {
@@ -32,14 +27,14 @@ export default function HighlightListTiny(props) {
     }
   });
   return (
-    <HighlightListTinyStyles>
+    <HighlightListStyles type={type}>
       {itemDatas.map(highlight => (
         // eslint-disable-next-line
         <div
           onClick={() => setActive(highlight)}
           key={highlight.title}
           className={
-            active.title === highlight.title
+            active.id === highlight.id
               ? `highlight highlight--tiny highlight--tiny--active`
               : `highlight highlight--tiny`
           }
@@ -52,11 +47,13 @@ export default function HighlightListTiny(props) {
             <p className="highlight__subtitle">{highlight.subtitle}</p>
             <div className="highlight__stats">
               <span className="highlight__stat">{highlight.status}</span>
-              <span className="highlight__stat">{highlight.members.length}</span>
+              <span className="highlight__stat">
+                {type === 'users' ? null : highlight.members.length}
+              </span>
             </div>
           </div>
         </div>
       ))}
-    </HighlightListTinyStyles>
+    </HighlightListStyles>
   );
 }

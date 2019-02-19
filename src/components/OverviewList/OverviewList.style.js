@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProjectListStyles = styled.div`
+const OverViewListStyles = styled.div`
   align-items: start;
   display: grid;
   grid-gap: 0px;
@@ -12,6 +12,10 @@ const ProjectListStyles = styled.div`
     height: calc(100vh - 80px);
     overflow-y: scroll;
   }
+
+  > .scroll__wrapper:last-child {
+    border-left: 1px solid var(--lightgrey);
+  }
 `;
 
-export default ProjectListStyles;
+export default OverViewListStyles;

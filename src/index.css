@@ -15,9 +15,7 @@
 
 * {
   box-sizing: border-box;
-  /* font-family: 'Montserrat', sans-serif; */
-  /* font-family: 'Roboto', sans-serif; */
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
@@ -34,10 +32,6 @@ body {
   height: 100%;
   overflow: hidden;
   width: 100%;
-}
-
-html .bar {
-  background: red;
 }
 
 #root {
