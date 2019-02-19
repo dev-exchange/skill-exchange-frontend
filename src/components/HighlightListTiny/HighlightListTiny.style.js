@@ -18,7 +18,6 @@ const HighlightListTinyStyles = styled.div`
 
   .highlight--tiny {
     border-bottom: 1px solid var(--lightgrey);
-    border-radius: 0 3px 3px 0;
     display: flex;
     padding: 20px;
     padding-left: 20px;

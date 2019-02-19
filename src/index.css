@@ -18,6 +18,14 @@
   /* font-family: 'Montserrat', sans-serif; */
   /* font-family: 'Roboto', sans-serif; */
   font-family: 'Open Sans', sans-serif;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+*::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 html,
