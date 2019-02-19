@@ -145,7 +145,8 @@ const App = () => {
     loading: { loading: false, sectionName: undefined },
     users: demoData.users || [],
     highlights: demoData.highlights || [],
-    alert: { message: undefined, show: false }
+    alert: { message: undefined, show: false },
+    menuOpen: false
   };
 
   const reducer = (state, action) => {
@@ -154,6 +155,18 @@ const App = () => {
         return {
           ...state,
           alert: { show: false, message: undefined }
+        };
+
+      case 'toggleMenu':
+        return {
+          ...state,
+          menuOpen: !state.menuOpen
+        };
+
+      case 'closeMenu':
+        return {
+          ...state,
+          menuOpen: false
         };
 
       case 'createUsers':

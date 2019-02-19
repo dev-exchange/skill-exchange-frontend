@@ -6,14 +6,8 @@ const HighlightListStyles = styled.div`
   grid-template-columns: 350px;
 
   .highlight {
-    border-bottom: 1px solid var(--lightgrey);
     cursor: pointer;
-    width: 100%;
     transition: background 150ms ease-out;
-  }
-
-  .highlight--tiny:first-child {
-    /* border-top: 1px solid var(--lightgrey); */
   }
 
   .highlight--tiny {
@@ -36,10 +30,6 @@ const HighlightListStyles = styled.div`
     width: 100px;
   }
 
-  .highlight:hover {
-    border-bottom: 1px solid var(--grey);
-  }
-
   .highlight--tiny:hover {
     background: var(--lightblue);
     border-bottom: 1px solid var(--lightgrey);
@@ -51,10 +41,6 @@ const HighlightListStyles = styled.div`
     background: var(--lightblue);
     border-left: 3px solid var(--blue);
     cursor: default;
-  }
-
-  .highlight:hover .highlight__title {
-    color: var(--blue);
   }
 
   .highlight--tiny--active:hover .highlight__title {
@@ -71,12 +57,9 @@ const HighlightListStyles = styled.div`
     -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
-  .highlight--narrow .highlight__image__wrapper {
-    height: 125px;
-  }
-
   .highlight__image {
-    object-position: center;
+    object-position: bottom;
+    object-fit: cover;
     width: 100%;
     transition: all 300ms ease-out;
     display: ${props => (props.type === 'users' ? 'inline' : 'none')};
@@ -92,10 +75,6 @@ const HighlightListStyles = styled.div`
     justify-content: space-between;
     margin: 0;
     width: 100%;
-  }
-
-  .highlight--narrow .highlight__details {
-    margin-bottom: 10px;
   }
 
   .highlight--tiny .highlight__title {
@@ -131,8 +110,32 @@ const HighlightListStyles = styled.div`
     justify-content: space-between;
   }
 
-  .highlight--narrow .highlight__stats {
-    margin-top: 20px;
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 250px;
+    .highlight--tiny {
+      flex-direction: column;
+    }
+    .highlight--tiny .highlight__details {
+      display: grid;
+      grid-auto-flow: row;
+      grid-gap: 10px;
+      margin-top: 20px;
+    }
+    .highlight--tiny .highlight__subtitle {
+      margin: 0;
+    }
+
+    .highlight--tiny .highlight__image__wrapper {
+      height: 100px;
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
+    grid-template-columns: 175px;
+  }
+  @media only screen and (max-width: 500px) {
   }
 `;
 

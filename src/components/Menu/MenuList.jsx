@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getState } from '../../StateProvider';
 
 export default function MenuList(props) {
   const { menu, pathname } = props;
+  const [, dispatch] = getState();
+  const closeMenu = () => {
+    dispatch({ type: 'closeMenu' });
+  };
   return (
     <div className="menu__list">
       <div className="menu__list__header">{menu.name}</div>
@@ -20,6 +25,7 @@ export default function MenuList(props) {
             <Link
               key={item.name}
               to={item.pathname}
+              onClick={closeMenu}
               className={
                 itemRoot === pathRoot
                   ? `menu__list__item menu__list__item--active`
