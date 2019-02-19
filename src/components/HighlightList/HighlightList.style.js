@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const HighlightListTinyStyles = styled.div`
+const HighlightListStyles = styled.div`
   display: grid;
   grid-gap: 0px;
   grid-template-columns: 350px;
@@ -13,7 +13,7 @@ const HighlightListTinyStyles = styled.div`
   }
 
   .highlight--tiny:first-child {
-    border-top: 1px solid var(--lightgrey);
+    /* border-top: 1px solid var(--lightgrey); */
   }
 
   .highlight--tiny {
@@ -50,15 +50,22 @@ const HighlightListTinyStyles = styled.div`
   .highlight--tiny--active:hover {
     background: var(--lightblue);
     border-left: 3px solid var(--blue);
+    cursor: default;
   }
 
   .highlight:hover .highlight__title {
     color: var(--blue);
   }
 
+  .highlight--tiny--active:hover .highlight__title {
+    color: var(--black);
+  }
+
   .highlight__image__wrapper {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
     border-radius: 3px;
     height: 175px;
+    mask-image: radial-gradient(white, black);
     overflow: hidden;
     width: 100%;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -72,6 +79,7 @@ const HighlightListTinyStyles = styled.div`
     object-position: center;
     width: 100%;
     transition: all 300ms ease-out;
+    display: ${props => (props.type === 'users' ? 'inline' : 'none')};
   }
 
   .highlight__details {
@@ -128,4 +136,4 @@ const HighlightListTinyStyles = styled.div`
   }
 `;
 
-export default HighlightListTinyStyles;
+export default HighlightListStyles;

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const FormStyles = styled.div`
-  /* padding: 30px; */
   align-items: center;
   display: flex;
   height: 100%;
@@ -50,6 +49,18 @@ const FormStyles = styled.div`
     height: 2.5rem;
     padding: 0 5px;
     outline: none;
+  }
+
+  .form__text__area {
+    border: 1px solid var(--lightgrey);
+    border-radius: 3px;
+    color: var(--black);
+    font-size: 1rem;
+    height: 150px;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    width: 100%;
   }
 
   .form__button {

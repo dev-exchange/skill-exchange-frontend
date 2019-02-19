@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 const ProjectOverviewStyles = styled.div`
-  /* .project__overview { */
-  border-left: 1px solid var(--lightgrey);
   display: flex;
   flex-direction: column;
-  padding: 30px;
-  /* } */
+  padding: 20px 30px;
 
   .project__section__title {
     border-bottom: 1px solid var(--lightgrey);
@@ -23,8 +20,11 @@ const ProjectOverviewStyles = styled.div`
 
   /* PROJECT BANNER */
   .project__banner {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
     border-radius: 3px;
-    height: 400px;
+    height: 100px;
+    margin-bottom: 30px;
+    mask-image: radial-gradient(white, black);
     overflow: hidden;
     width: 100%;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -45,7 +45,7 @@ const ProjectOverviewStyles = styled.div`
     grid-template-areas:
       'info stat'
       'disc disc';
-    padding-top: 30px;
+    /* padding-top: 30px; */
   }
 
   .scroll__wrapper {
@@ -69,6 +69,7 @@ const ProjectOverviewStyles = styled.div`
 
   .project__subtitle {
     color: var(--grey);
+    margin: 10px 0;
   }
 
   .project__description {

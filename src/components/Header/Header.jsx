@@ -7,10 +7,20 @@ import { ProfileMenu } from '..';
 
 function Header(props) {
   const { title } = props;
-  const [{ currentUser, authed }] = getState();
+  const [{ currentUser, authed, user }] = getState();
+  let headerTitle = title;
+  if (headerTitle === undefined) {
+    if (user !== undefined) {
+      const docTitle = `${user.firstName} ${user.lastName}`;
+      headerTitle = docTitle;
+      document.title = docTitle;
+    } else {
+      headerTitle = 'Header';
+    }
+  }
   return (
     <HeaderStyles>
-      <h3 className="content__header__title">{title}</h3>
+      <h3 className="content__header__title">{headerTitle}</h3>
       {authed ? <ProfileMenu user={currentUser} size={50} /> : null}
     </HeaderStyles>
   );

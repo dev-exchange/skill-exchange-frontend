@@ -3,6 +3,7 @@ import Moment from 'react-moment';
 import { getState } from '../../StateProvider';
 import ProjectOverviewStyles from './ProjectOverview.style';
 import { ProfileMenu } from '..';
+import projectBanner from '../../assets/images/dust_scratches.png';
 
 export default function ProjectOverview(props) {
   const { project, history } = props;
@@ -14,7 +15,7 @@ export default function ProjectOverview(props) {
   return (
     <ProjectOverviewStyles>
       <div className="project__banner">
-        <img src={project.imageSrc} alt="" className="project__banner__image" />
+        {/* <img src={projectBanner} alt="" className="project__banner__image" /> */}
       </div>
       <div className="project__details">
         <div className="project__info">
@@ -50,17 +51,6 @@ export default function ProjectOverview(props) {
             <span className="project__stat__name">Membership</span>
             <span className="project__stat__value">{project.membership}</span>
           </div>
-          {/* <div className="skill__breakdown">
-            <span className="project__section__title">Project Skills</span>
-            <div className="piechart__wrapper">
-              <PieChart data={project.skills} />
-            </div>
-            <div className="skill__list">
-              {project.skills.map(skill => (
-                <span key={skill.title} className="project__skill">{`- ${skill.title}`}</span>
-              ))}
-            </div>
-          </div> */}
         </div>
         <div className="project__discussion">
           <span className="project__section__title">Project Discussion</span>

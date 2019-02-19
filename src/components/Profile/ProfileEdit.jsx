@@ -1,85 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import nprogress from 'nprogress';
 import { FormStyles } from '../styles';
 import { getState } from '../../StateProvider';
 import savingIcon from '../../assets/loaders/svg-loaders/tail-spin.svg';
-
-const ProfileEditStyles = styled.div`
-  background: rgba(0, 0, 0, 0.5);
-  display: grid;
-  height: 100vh;
-  left: 0;
-  opacity: ${props => (props.edit ? 1 : 0)};
-  padding: 50px;
-  pointer-events: ${props => (props.edit ? 'all' : 'none')};
-  position: fixed;
-  top: 0;
-  overflow-y: scroll;
-  transition: opacity 250ms ease-in-out;
-  width: 100vw;
-  z-index: 1000;
-
-  .profile__editor {
-    display: grid;
-    grid-gap: 25px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'basics security'
-      'basics security'
-      'control control';
-  }
-
-  .profile__editor__basics {
-    grid-area: basics;
-  }
-
-  .profile__editor__security {
-    grid-area: security;
-  }
-
-  .profile__editor__projects {
-    grid-area: projects;
-  }
-
-  .profile__editor__skills {
-    grid-area: skills;
-  }
-
-  .profile__editor__messages {
-    grid-area: messages;
-  }
-
-  .form {
-    align-self: start;
-    left: 0;
-    width: 100%;
-  }
-
-  .profile__editor__controls {
-    grid-area: control;
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 20px;
-  }
-
-  .profile__editor__button {
-    background: var(--blue);
-    border: none;
-    border-radius: 3px;
-    color: white;
-    cursor: pointer;
-    font-size: 1rem;
-    height: 40px;
-    outline: none;
-    transition: background 250ms ease-in-out;
-  }
-
-  .profile__editor__button--save,
-  .form__button--save {
-    background: var(--lightorange);
-  }
-`;
+import ProfileEditStyles from './ProfileEdit.style';
 
 export default function ProfileEdit(props) {
   const { edit, toggleEdit } = props;
@@ -92,7 +16,14 @@ export default function ProfileEdit(props) {
     firstName: currentUser.firstName || '',
     lastName: currentUser.lastName || '',
     email: currentUser.email || '',
-    phone: currentUser.phone || ''
+    phone: currentUser.phone || '',
+    location: currentUser.location || ''
+  });
+
+  // BIO SECTION
+  const [bioForm, setBioValues] = useState({
+    position: currentUser.position || '',
+    about: currentUser.about || ''
   });
 
   // SECURITY SECTION
@@ -125,6 +56,12 @@ export default function ProfileEdit(props) {
           [ev.target.name]: ev.target.value
         });
         break;
+      case 'bio':
+        setBioValues({
+          ...bioForm,
+          [ev.target.name]: ev.target.value
+        });
+        break;
       case 'security':
         setSecurityValues({
           ...securityForm,
@@ -136,15 +73,49 @@ export default function ProfileEdit(props) {
     }
   };
 
+  const validateData = sectionTitle => {
+    if (sectionTitle === 'basics') {
+      if (basicForm.email === '') {
+        dispatch({ type: 'setAlert', message: 'Email is required' });
+        throw new Error('Validation Error');
+      }
+      if (basicForm.firstName === '') {
+        dispatch({ type: 'setAlert', message: 'First Name is required' });
+        throw new Error('Validation Error');
+      }
+    }
+    if (sectionTitle === 'security') {
+      if (securityForm.currentPass !== currentUser.password) {
+        dispatch({ type: 'setAlert', message: 'Your current password is incorrect' });
+        throw new Error('Validation Error');
+      }
+      if (securityForm.newPassword === '') {
+        dispatch({ type: 'setAlert', message: 'New password cannot be blank' });
+        throw new Error('Validation Error');
+      }
+      if (securityForm.newPassConf !== securityForm.newPassword) {
+        dispatch({ type: 'setAlert', message: 'New passwords do not match' });
+        throw new Error('Validation Error');
+      }
+    }
+  };
+
   // SAVE ALL CHANGED SECTIONS
   const saveChanged = () =>
     new Promise((resolve, reject) => {
-      changed.sections.forEach(sectionTitle => {
+      changed.sections.forEach(async sectionTitle => {
         switch (sectionTitle) {
           case 'basics': {
             dispatch({
               type: 'updateUser',
-              updatedUser: { ...currentUser, ...basicForm }
+              updatedUser: { ...currentUser, ...basicForm, ...bioForm }
+            });
+            break;
+          }
+          case 'bio': {
+            dispatch({
+              type: 'updateUser',
+              updatedUser: { ...currentUser, ...bioForm }
             });
             break;
           }
@@ -157,29 +128,17 @@ export default function ProfileEdit(props) {
 
   const handleSave = (ev, section) => {
     ev.preventDefault();
-    // VALIDATE INPUT BEFORE SAVE
-    if (section === 'basics') {
-      if (basicForm.email === '') {
-        dispatch({ type: 'setAlert', message: 'Email is required' });
-        return;
+    if (section === 'changed') {
+      try {
+        changed.sections.forEach(sectionTitle => validateData(sectionTitle));
+      } catch (error) {
+        return error;
       }
-      if (basicForm.firstName === '') {
-        dispatch({ type: 'setAlert', message: 'First Name is required' });
-        return;
-      }
-    }
-    if (section === 'security') {
-      if (securityForm.currentPass !== currentUser.password) {
-        dispatch({ type: 'setAlert', message: 'Your current password is incorrect' });
-        return;
-      }
-      if (securityForm.newPassword === '') {
-        dispatch({ type: 'setAlert', message: 'New password cannot be blank' });
-        return;
-      }
-      if (securityForm.newPassConf !== securityForm.newPassword) {
-        dispatch({ type: 'setAlert', message: 'New passwords do not match' });
-        return;
+    } else {
+      try {
+        validateData(section);
+      } catch (error) {
+        return error;
       }
     }
     nprogress.start();
@@ -187,7 +146,7 @@ export default function ProfileEdit(props) {
       type: 'setLoading',
       newLoading: { loading: true, sectionName: section }
     });
-    setTimeout(async () => {
+    return setTimeout(async () => {
       dispatch({
         type: 'setLoading',
         newLoading: { loading: false }
@@ -201,6 +160,15 @@ export default function ProfileEdit(props) {
           dispatch({
             type: 'updateUser',
             updatedUser: { ...currentUser, ...basicForm }
+          });
+          const sections = changed.sections.filter(sectionName => sectionName !== section);
+          setChanged({ changed: sections.length > 0, sections: [...sections] });
+          break;
+        }
+        case 'bio': {
+          dispatch({
+            type: 'updateUser',
+            updatedUser: { ...currentUser, ...bioForm }
           });
           const sections = changed.sections.filter(sectionName => sectionName !== section);
           setChanged({ changed: sections.length > 0, sections: [...sections] });
@@ -234,7 +202,7 @@ export default function ProfileEdit(props) {
             <form className="form" onSubmit={ev => handleSave(ev, 'basics')}>
               <div className="form__header">
                 <h3 className="form__heading">Basic Info</h3>
-                <p>Edit your name and contact details</p>
+                <p>Edit your name, contact, and location details</p>
               </div>
               <label className="form__label" htmlFor="firstName">
                 First Name
@@ -276,10 +244,61 @@ export default function ProfileEdit(props) {
                   onChange={ev => handleChange(ev, 'basics')}
                 />
               </label>
+              <label className="form__label form__label--wide" htmlFor="location">
+                Location
+                <input
+                  className="form__input"
+                  type="text"
+                  name="location"
+                  value={basicForm.location}
+                  onChange={ev => handleChange(ev, 'basics')}
+                />
+              </label>
               {changed.changed && changed.sections.indexOf('basics') > -1 ? (
                 <button className="form__button form__button--save" type="submit">
                   {loading.loading &&
                   (loading.sectionName === 'basics' || loading.sectionName === 'changed') ? (
+                    <img className="loading__icon" alt="" src={savingIcon} />
+                  ) : (
+                    'Save Changes'
+                  )}
+                </button>
+              ) : null}
+            </form>
+          </FormStyles>
+        </div>
+
+        <div className="profile__editor__bio profile__editor__section">
+          <FormStyles>
+            <form className="form" onSubmit={ev => handleSave(ev, 'bio')}>
+              <div className="form__header">
+                <h3 className="form__heading">Bio</h3>
+                <p>Tell us more about yourself</p>
+              </div>
+              <label className="form__label form__label--wide" htmlFor="position">
+                What do you do?
+                <input
+                  className="form__input"
+                  type="text"
+                  name="position"
+                  value={bioForm.position}
+                  onChange={ev => handleChange(ev, 'bio')}
+                />
+              </label>
+              <label className="form__label form__label--wide" htmlFor="about">
+                Bio
+                <textarea
+                  className="form__text__area"
+                  type="text"
+                  name="about"
+                  value={bioForm.about}
+                  onChange={ev => handleChange(ev, 'bio')}
+                />
+              </label>
+              {changed.changed && changed.sections.indexOf('bio') > -1 ? (
+                <button className="form__button form__button--save" type="submit">
+                  {loading.loading &&
+                  (loading.sectionName === 'bio' || loading.sectionName === 'changed') ? (
                     <img className="loading__icon" alt="" src={savingIcon} />
                   ) : (
                     'Save Changes'

@@ -5,13 +5,25 @@ import uuid from 'uuid/v4';
 import faker from 'faker';
 import { Content, Menu, Alerter } from './components';
 import { StateProvider } from './StateProvider';
+import projectImage from './assets/images/shuffle.png';
 
 const getDemoData = () => {
+  const fakeUser = {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    skills: [],
+    projects: [],
+    collab: 'Yes',
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    avatar: `https://source.unsplash.com/${300}x${300}/?portrait`
+  };
+  const users = [];
   const statuses = ['In Progress', 'Planning', 'On Hold', 'Completed'];
   const memberships = ['Open', 'Closed', 'Invite Only'];
   const imageTags = ['project', 'design', 'forest'];
-  const users = [];
   const highlights = new Array(imageTags.length).fill(undefined).map((element, index) => ({
+    id: uuid(),
     title: faker.commerce.productName(),
     subtitle: faker.company.catchPhrase(),
     status: statuses[Math.floor(Math.random() * statuses.length)],
@@ -43,16 +55,23 @@ const getDemoData = () => {
       }
     ],
     membership: memberships[Math.floor(Math.random() * memberships.length)],
-    imageSrc: `https://source.unsplash.com/800x800/?${imageTags[index]}`,
+    imageSrc: projectImage,
     comments: new Array(Math.floor(Math.random() * 10)).fill(undefined).map((element, index) => {
       const commentUser = {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
+        skills: [],
+        projects: [],
+        collab: 'No',
         email: faker.internet.email(),
         password: faker.internet.password(),
         position: faker.name.jobTitle(),
+        location: `${faker.address.city()}, ${faker.address.state()}`,
+        memberSince: faker.date.past(),
+        phone: faker.phone.phoneNumber(),
+        about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
         id: uuid(),
-        avatar: `https://source.unsplash.com/${100 + index}x${100 + index}/?portrait`
+        avatar: `https://source.unsplash.com/${300 + index}x${300 + index}/?portrait`
       };
       users.push(commentUser);
       return {
@@ -63,11 +82,18 @@ const getDemoData = () => {
           const replyUser = {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
+            skills: [],
+            projects: [],
+            collab: 'Yes',
             email: faker.internet.email(),
             password: faker.internet.password(),
             position: faker.name.jobTitle(),
+            location: `${faker.address.city()}, ${faker.address.state()}`,
+            memberSince: faker.date.past(),
+            phone: faker.phone.phoneNumber(),
+            about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
             id: uuid(),
-            avatar: `https://source.unsplash.com/${150 + index}x${150 + index}/?portrait`
+            avatar: `https://source.unsplash.com/${500 + index}x${500 + index}/?portrait`
           };
           users.push(replyUser);
           return {
@@ -84,11 +110,18 @@ const getDemoData = () => {
         const memberUser = {
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
+          skills: [],
+          projects: [],
+          collab: 'Yes',
           email: faker.internet.email(),
           password: faker.internet.password(),
           id: uuid(),
           position: faker.name.jobTitle(),
-          avatar: `https://source.unsplash.com/${200 + index}x${200 + index}/?portrait`
+          location: `${faker.address.city()}, ${faker.address.state()}`,
+          memberSince: faker.date.past(),
+          phone: faker.phone.phoneNumber(),
+          about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
+          avatar: `https://source.unsplash.com/${700 + index}x${700 + index}/?portrait`
         };
         users.push(memberUser);
         return memberUser;
@@ -96,7 +129,8 @@ const getDemoData = () => {
   }));
   const demoData = {
     users,
-    highlights
+    highlights,
+    fakeUser
   };
   return demoData;
 };
@@ -138,15 +172,19 @@ const App = () => {
       case 'logoutUser':
         return {
           ...state,
-          currentUser: undefined,
+          currentUser: { id: null },
           authed: false
         };
 
       case 'registerUser': {
+        const { newUser } = action;
+        newUser.skills = [];
+        newUser.projects = [];
+        newUser.collab = 'Yes';
         return {
           ...state,
-          currentUser: action.newUser,
-          users: [...state.users, action.newUser],
+          currentUser: newUser,
+          users: [...state.users, newUser],
           authed: true
         };
       }
