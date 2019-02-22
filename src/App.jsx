@@ -8,6 +8,7 @@ import { StateProvider } from './StateProvider';
 import projectImage from './assets/images/shuffle.png';
 
 const getDemoData = () => {
+  let sizeIndex = 300;
   const fakeUser = {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -71,7 +72,7 @@ const getDemoData = () => {
         phone: faker.phone.phoneNumber(),
         about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
         id: uuid(),
-        avatar: `https://source.unsplash.com/${300 + index}x${300 + index}/?portrait`
+        avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
       };
       users.push(commentUser);
       return {
@@ -93,7 +94,7 @@ const getDemoData = () => {
             phone: faker.phone.phoneNumber(),
             about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
             id: uuid(),
-            avatar: `https://source.unsplash.com/${500 + index}x${500 + index}/?portrait`
+            avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
           };
           users.push(replyUser);
           return {
@@ -121,7 +122,7 @@ const getDemoData = () => {
           memberSince: faker.date.past(),
           phone: faker.phone.phoneNumber(),
           about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
-          avatar: `https://source.unsplash.com/${700 + index}x${700 + index}/?portrait`
+          avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
         };
         users.push(memberUser);
         return memberUser;

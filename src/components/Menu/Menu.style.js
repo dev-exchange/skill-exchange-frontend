@@ -6,7 +6,7 @@ const MenuStyles = styled.div`
   grid-area: menu;
   overflow: hidden;
   background: white;
-  transition: left 250ms ease-out;
+  transition: left 200ms ease-out;
 
   .menu__header {
     padding-left: 15px;
@@ -31,6 +31,7 @@ const MenuStyles = styled.div`
     flex-grow: 1;
     overflow-y: scroll;
     padding: 30px 10px;
+    padding: 30px 0px;
   }
 
   .menu__list {
@@ -48,12 +49,25 @@ const MenuStyles = styled.div`
     text-transform: uppercase;
   }
 
+  /* flat style headers */
+  .menu__list__header {
+    color: var(--grey);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    text-transform: uppercase;
+  }
+
   .menu__list__body {
     display: grid;
     grid-auto-flow: row;
     grid-gap: 5px;
+    grid-gap: 0px; /* for flat style */
   }
 
+  /* normal menu item */
   .menu__list__item {
     align-items: center;
     background: none;
@@ -70,7 +84,7 @@ const MenuStyles = styled.div`
     padding: 0;
     padding-left: 5px;
     text-decoration: none;
-    transition: all 150ms ease-out;
+    transition: color 150ms ease-out, background 150ms ease-out;
   }
 
   .menu__list__item:hover {
@@ -78,9 +92,24 @@ const MenuStyles = styled.div`
     color: var(--blue);
   }
 
+  /* flat style menu item */
+  .menu__list__item {
+    border-radius: 0px;
+    padding-left: 10px;
+  }
+
+  .menu__list__item:hover {
+    background: var(--lightblue);
+    border-left: 3px solid var(--blue);
+    color: var(--blue);
+    padding-left: 7px;
+  }
+
+  /* normal active item */
   .menu__list__item--active {
     background: var(--blue);
     color: var(--white);
+    padding-left: 7px;
   }
 
   .menu__list__item--active:hover {
@@ -88,6 +117,22 @@ const MenuStyles = styled.div`
     color: var(--white);
     cursor: default;
   }
+
+  /* flat style active menu item */
+
+  .menu__list__item--active {
+    background: var(--lightblue);
+    border-left: 3px solid var(--blue);
+    color: var(--blue);
+  }
+
+  .menu__list__item--active:hover {
+    background: var(--lightblue);
+    color: var(--blue);
+    cursor: default;
+  }
+
+  /* responsive */
   @media only screen and (max-width: 850px) {
     position: fixed;
     left: ${props => (props.menuOpen ? 0 : '-180px')};

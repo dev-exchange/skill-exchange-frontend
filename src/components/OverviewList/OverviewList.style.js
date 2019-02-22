@@ -11,6 +11,8 @@ const OverViewListStyles = styled.div`
   .scroll__wrapper {
     height: calc(100vh - 80px);
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    transition: left 200ms;
   }
 
   > .scroll__wrapper:last-child {
@@ -22,10 +24,13 @@ const OverViewListStyles = styled.div`
   @media only screen and (max-width: 850px) {
     grid-template-columns: 175px 1fr;
   }
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 550px) {
     grid-template-columns: 1fr;
     .scroll__wrapper:first-child {
-      display: none;
+      display: ${props => (props.view === 'list' ? 'block' : 'none')};
+    }
+    .scroll__wrapper:nth-child(2) {
+      display: ${props => (props.view === 'overview' ? 'block' : 'none')};
     }
   }
 `;

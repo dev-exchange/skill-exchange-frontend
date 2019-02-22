@@ -3,7 +3,7 @@ import React from 'react';
 import HighlightListStyles from './HighlightList.style';
 
 export default function HighlightList(props) {
-  const { items, setActive, active, type } = props;
+  const { items, setActive, active, type, setView } = props;
   const itemDatas = items.map(item => {
     switch (type) {
       case 'projects':
@@ -26,12 +26,16 @@ export default function HighlightList(props) {
         };
     }
   });
+  const changeActive = item => {
+    setActive(item);
+    setView('overview');
+  };
   return (
     <HighlightListStyles type={type}>
       {itemDatas.map(highlight => (
         // eslint-disable-next-line
         <div
-          onClick={() => setActive(highlight)}
+          onClick={() => changeActive(highlight)}
           key={highlight.title}
           className={
             active.id === highlight.id
