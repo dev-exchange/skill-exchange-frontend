@@ -28,8 +28,9 @@ const HeaderStyles = styled.div`
     outline: none;
     padding: none;
     color: var(--black);
-    padding-right: 15px;
+    margin-right: 12.5px;
     font-size: 1.5rem;
+    background: none;
   }
 
   .content__header__title {
@@ -39,6 +40,7 @@ const HeaderStyles = styled.div`
     .menu__button {
       display: flex;
     }
+    padding: 12.5px;
   }
 `;
 

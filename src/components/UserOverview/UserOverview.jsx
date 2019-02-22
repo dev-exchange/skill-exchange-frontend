@@ -9,6 +9,7 @@ function UserOverview(props) {
         <React.Fragment>
           <button className="view__toggle__button" type="button" onClick={() => setView('list')}>
             <i className="fas fa-caret-left view__toggle" />
+            Back
           </button>
           <div className="profile__header">
             <div className="profile__avatar__wrapper">
