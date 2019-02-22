@@ -18,20 +18,42 @@ export default function OverviewList(props) {
       return 0;
     })
   };
+  const limit = 10;
+  const [view, changeView] = useState('list');
   const [active, setActive] = useState(items[type][0]);
+  const [page, setPage] = useState(1);
+  const [itemList, setItems] = useState(items[type].slice(0, limit));
+  const setView = viewName => {
+    changeView(viewName);
+  };
+  const handleScroll = ev => {
+    const scroll = ev.target.scrollTop;
+    const height = ev.target.clientHeight;
+    const childHeight = ev.target.childNodes[0].clientHeight;
+    if (scroll + height >= childHeight - 100) {
+      setPage(page + 1);
+      setItems(items[type].slice(0, limit * page));
+    }
+  };
   return (
-    <OverViewListStyles>
-      <div className="scroll__wrapper">
-        <HighlightList type={type} items={items[type]} setActive={setActive} active={active} />
+    <OverViewListStyles view={view}>
+      <div className="scroll__wrapper" onScroll={handleScroll}>
+        <HighlightList
+          type={type}
+          items={itemList}
+          setView={setView}
+          setActive={setActive}
+          active={active}
+        />
       </div>
       {type === 'projects' ? (
         <div className="scroll__wrapper">
-          <ProjectOverview project={active} />
+          <ProjectOverview project={active} view={view} setView={setView} />
         </div>
       ) : null}
       {type === 'users' ? (
         <div className="scroll__wrapper">
-          <UserOverview user={active} overview />
+          <UserOverview user={active} view={view} setView={setView} overview />
         </div>
       ) : null}
     </OverViewListStyles>

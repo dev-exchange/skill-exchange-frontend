@@ -6,7 +6,7 @@ import { ProfileMenu } from '..';
 import projectBanner from '../../assets/images/dust_scratches.png';
 
 export default function ProjectOverview(props) {
-  const { project, history } = props;
+  const { project, history, setView } = props;
   const timestampFormat = 'ddd, MMM M, YYYY @ h:mm a';
   useEffect(() => {
     document.querySelectorAll('.scroll__wrapper')[1].scrollTop = 0;
@@ -14,6 +14,9 @@ export default function ProjectOverview(props) {
   });
   return (
     <ProjectOverviewStyles>
+      <button className="view__toggle__button" type="button" onClick={() => setView('list')}>
+        <i className="fas fa-caret-left view__toggle" />
+      </button>
       <div className="project__banner">
         {/* <img src={projectBanner} alt="" className="project__banner__image" /> */}
       </div>

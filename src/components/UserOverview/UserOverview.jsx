@@ -2,11 +2,14 @@ import React from 'react';
 import UserOverviewStyles from './UserOverview.style';
 
 function UserOverview(props) {
-  const { user, overview } = props;
+  const { user, overview, view, setView } = props;
   return (
-    <UserOverviewStyles overview={overview}>
+    <UserOverviewStyles overview={overview} view={view}>
       {user === undefined ? null : (
         <React.Fragment>
+          <button className="view__toggle__button" type="button" onClick={() => setView('list')}>
+            <i className="fas fa-caret-left view__toggle" />
+          </button>
           <div className="profile__header">
             <div className="profile__avatar__wrapper">
               <img src={user.avatar} alt="" className="profile__avatar__image" />

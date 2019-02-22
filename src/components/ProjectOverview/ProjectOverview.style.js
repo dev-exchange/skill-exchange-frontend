@@ -201,25 +201,39 @@ const ProjectOverviewStyles = styled.div`
     width: 100px;
   }
 
-  /* .project__member__avatar__wrapper {
-    border: 3px solid var(--pink);
-    border-radius: 50%;
-    cursor: pointer;
-    height: 100px;
-    overflow: hidden;
-    outline: none;
+  .view__toggle__button {
+    width: 0;
     padding: 0;
-    width: 100px;
+    background: none;
+    border: none;
+    outline: none;
   }
 
-  .project__member__avatar {
-    height: 100px;
-    width: 100px;
-  } */
+  .view__toggle {
+    display: none;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+  }
 
   .project__member__name {
     margin-top: 5px;
     text-align: center;
+  }
+  @media only screen and (max-width: 1200px) {
+    .project__details {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'info'
+        'stat'
+        'disc';
+    }
+  }
+  @media only screen and (max-width: 550px) {
+    .view__toggle {
+      display: block;
+    }
   }
 `;
 

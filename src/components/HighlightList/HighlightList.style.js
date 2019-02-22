@@ -135,7 +135,23 @@ const HighlightListStyles = styled.div`
   @media only screen and (max-width: 850px) {
     grid-template-columns: 175px;
   }
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 550px) {
+    grid-template-columns: 1fr;
+    .highlight--tiny {
+      flex-direction: row;
+    }
+    .highlight--tiny .highlight__image__wrapper {
+      height: 100px;
+      margin: 0;
+      width: 100px;
+    }
+    .highlight--tiny .highlight__details {
+      display: grid;
+      grid-auto-flow: row;
+      grid-gap: 5px;
+      margin-top: 0px;
+      margin-left: 10px;
+    }
   }
 `;
 

@@ -78,6 +78,7 @@ const FormStyles = styled.div`
     letter-spacing: 1px;
     outline: none;
     /* padding: 10px; */
+    width: 100%;
   }
 
   .loading__icon {
@@ -88,6 +89,29 @@ const FormStyles = styled.div`
     box-shadow: inset 1px 1px 2px var(--grey);
     outline: none;
     border: none;
+  }
+  @media only screen and (max-width: 500px) {
+    .form {
+      max-width: 90vw;
+      min-width: 10vw;
+    }
+    .form__label {
+      width: 100%;
+    }
+    .form__input {
+      width: 100%;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .form {
+      grid-template-columns: 1fr;
+    }
+    .form__header,
+    .form__button,
+    .form__label,
+    .form__label--wide {
+      grid-column: 1 / span 1;
+    }
   }
 `;
 

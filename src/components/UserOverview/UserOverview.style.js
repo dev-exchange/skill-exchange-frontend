@@ -112,6 +112,22 @@ const UserOverviewStyles = styled.div`
     text-align: right;
   }
 
+  .view__toggle__button {
+    width: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    outline: none;
+  }
+
+  .view__toggle {
+    display: none;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+  }
+
   @media only screen and (max-width: 1000px) {
     .project__details {
       grid-template-columns: 1fr;
@@ -120,6 +136,7 @@ const UserOverviewStyles = styled.div`
         'stat';
     }
   }
+
   @media only screen and (max-width: 850px) {
     .profile__avatar__wrapper {
       height: 100px;
@@ -130,6 +147,11 @@ const UserOverviewStyles = styled.div`
 
     .profile__header {
       height: 75px;
+    }
+  }
+  @media only screen and (max-width: 550px) {
+    .view__toggle {
+      display: block;
     }
   }
   @media only screen and (max-width: 500px) {
