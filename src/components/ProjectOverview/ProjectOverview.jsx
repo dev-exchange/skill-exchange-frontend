@@ -16,6 +16,7 @@ export default function ProjectOverview(props) {
     <ProjectOverviewStyles>
       <button className="view__toggle__button" type="button" onClick={() => setView('list')}>
         <i className="fas fa-caret-left view__toggle" />
+        Back
       </button>
       <div className="project__banner">
         {/* <img src={projectBanner} alt="" className="project__banner__image" /> */}

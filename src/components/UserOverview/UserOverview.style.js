@@ -113,19 +113,20 @@ const UserOverviewStyles = styled.div`
   }
 
   .view__toggle__button {
-    width: 0;
-    padding: 0;
+    align-items: center;
     background: none;
     border: none;
+    cursor: pointer;
+    display: none;
+    margin-bottom: 20px;
     outline: none;
+    padding: 0;
   }
 
   .view__toggle {
-    display: none;
-    margin-bottom: 20px;
-    font-size: 2rem;
     color: var(--black);
-    cursor: pointer;
+    font-size: 2rem;
+    margin-right: 10px;
   }
 
   @media only screen and (max-width: 1000px) {
@@ -150,8 +151,9 @@ const UserOverviewStyles = styled.div`
     }
   }
   @media only screen and (max-width: 550px) {
-    .view__toggle {
-      display: block;
+    padding: 20px 12.5px;
+    .view__toggle__button {
+      display: flex;
     }
   }
   @media only screen and (max-width: 500px) {
