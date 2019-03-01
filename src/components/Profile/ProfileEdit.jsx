@@ -108,7 +108,7 @@ export default function ProfileEdit(props) {
           case 'basics': {
             dispatch({
               type: 'updateUser',
-              updatedUser: { ...currentUser, ...basicForm, ...bioForm }
+              updatedUser: { ...currentUser, ...basicForm }
             });
             break;
           }
