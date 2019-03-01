@@ -6,9 +6,11 @@ import faker from 'faker';
 import { Content, Menu, Alerter } from './components';
 import { StateProvider } from './StateProvider';
 import projectImage from './assets/images/shuffle.png';
+import avatar from './assets/images/user.png';
 
 const getDemoData = () => {
-  let sizeIndex = 300;
+  const sizeIndex = 300;
+  const projectTotal = 100;
   const fakeUser = {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -17,13 +19,13 @@ const getDemoData = () => {
     collab: 'Yes',
     email: faker.internet.email(),
     password: faker.internet.password(),
-    avatar: `https://source.unsplash.com/${300}x${300}/?portrait`
+    // avatar: `https://source.unsplash.com/${300}x${300}/?portrait`
+    avatar
   };
   const users = [];
   const statuses = ['In Progress', 'Planning', 'On Hold', 'Completed'];
   const memberships = ['Open', 'Closed', 'Invite Only'];
-  const imageTags = ['project', 'design', 'forest'];
-  const highlights = new Array(imageTags.length).fill(undefined).map((element, index) => ({
+  const highlights = new Array(projectTotal).fill(undefined).map((element, index) => ({
     id: uuid(),
     title: faker.commerce.productName(),
     subtitle: faker.company.catchPhrase(),
@@ -57,7 +59,7 @@ const getDemoData = () => {
     ],
     membership: memberships[Math.floor(Math.random() * memberships.length)],
     imageSrc: projectImage,
-    comments: new Array(Math.floor(Math.random() * 10)).fill(undefined).map((element, index) => {
+    comments: new Array(Math.floor(Math.random() * 10)).fill(undefined).map(() => {
       const commentUser = {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
@@ -72,14 +74,15 @@ const getDemoData = () => {
         phone: faker.phone.phoneNumber(),
         about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
         id: uuid(),
-        avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
+        // avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
+        avatar
       };
       users.push(commentUser);
       return {
         user: commentUser,
         timestamp: new Date(faker.date.past()).getTime(),
         comment: faker.lorem.paragraph(),
-        replies: new Array(Math.floor(Math.random() * 5)).fill(undefined).map((element, index) => {
+        replies: new Array(Math.floor(Math.random() * 5)).fill(undefined).map(() => {
           const replyUser = {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
@@ -94,7 +97,8 @@ const getDemoData = () => {
             phone: faker.phone.phoneNumber(),
             about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
             id: uuid(),
-            avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
+            // avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
+            avatar
           };
           users.push(replyUser);
           return {
@@ -105,28 +109,27 @@ const getDemoData = () => {
         })
       };
     }),
-    members: new Array(Math.floor(Math.random() * 20) + 10)
-      .fill(undefined)
-      .map((element, index) => {
-        const memberUser = {
-          firstName: faker.name.firstName(),
-          lastName: faker.name.lastName(),
-          skills: [],
-          projects: [],
-          collab: 'Yes',
-          email: faker.internet.email(),
-          password: faker.internet.password(),
-          id: uuid(),
-          position: faker.name.jobTitle(),
-          location: `${faker.address.city()}, ${faker.address.state()}`,
-          memberSince: faker.date.past(),
-          phone: faker.phone.phoneNumber(),
-          about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
-          avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
-        };
-        users.push(memberUser);
-        return memberUser;
-      })
+    members: new Array(Math.floor(Math.random() * 20) + 10).fill(undefined).map(() => {
+      const memberUser = {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        skills: [],
+        projects: [],
+        collab: 'Yes',
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        id: uuid(),
+        position: faker.name.jobTitle(),
+        location: `${faker.address.city()}, ${faker.address.state()}`,
+        memberSince: faker.date.past(),
+        phone: faker.phone.phoneNumber(),
+        about: faker.lorem.paragraphs(Math.floor(Math.random() * 3) + 1),
+        // avatar: `https://source.unsplash.com/${(sizeIndex += 1)}x${sizeIndex}/?portrait`
+        avatar
+      };
+      users.push(memberUser);
+      return memberUser;
+    })
   }));
   const demoData = {
     users,
@@ -140,14 +143,14 @@ const App = () => {
   const demoData = getDemoData();
 
   const initialState = {
+    alert: { message: undefined, show: false },
     authed: false,
     currentUser: { id: null },
-    user: undefined,
-    loading: { loading: false, sectionName: undefined },
-    users: demoData.users || [],
     highlights: demoData.highlights || [],
-    alert: { message: undefined, show: false },
-    menuOpen: false
+    loading: { loading: false, sectionName: undefined },
+    menuOpen: false,
+    user: undefined,
+    users: demoData.users || []
   };
 
   const reducer = (state, action) => {
@@ -156,12 +159,6 @@ const App = () => {
         return {
           ...state,
           alert: { show: false, message: undefined }
-        };
-
-      case 'toggleMenu':
-        return {
-          ...state,
-          menuOpen: !state.menuOpen
         };
 
       case 'closeMenu':
@@ -219,6 +216,12 @@ const App = () => {
         return {
           ...state,
           user: action.user
+        };
+
+      case 'toggleMenu':
+        return {
+          ...state,
+          menuOpen: !state.menuOpen
         };
 
       case 'updateUser': {

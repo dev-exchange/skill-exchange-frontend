@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const HighlightListStyles = styled.div`
+const BrowserListStyles = styled.div`
   display: grid;
   grid-gap: 0px;
   grid-template-columns: 350px;
 
-  .highlight--tiny {
+  .browser__list__item {
     cursor: pointer;
     border-bottom: 1px solid var(--lightgrey);
     display: flex;
@@ -14,30 +14,30 @@ const HighlightListStyles = styled.div`
     transition: background 150ms ease-out;
   }
 
-  .highlight--tiny:hover {
+  .browser__list__item:hover {
     background: var(--lightblue);
     border-bottom: 1px solid var(--lightgrey);
     border-left: 3px solid var(--blue);
     padding-left: 17px;
   }
 
-  .highlight--tiny--active {
+  .browser__list__item--active {
     background: var(--lightblue);
     border-left: 3px solid var(--blue);
     padding-left: 17px;
   }
 
-  .highlight--tiny--active:hover {
+  .browser__list__item--active:hover {
     background: var(--lightblue);
     border-left: 3px solid var(--blue);
     cursor: default;
   }
 
-  .highlight--tiny--active:hover .highlight__title {
+  .browser__list__item--active:hover .browser__list__item__title {
     color: var(--black);
   }
 
-  .highlight__image__wrapper {
+  .browser__list__item__image__wrapper {
     background: linear-gradient(135deg, var(--blue), var(--teal));
     border-radius: 3px;
     flex-shrink: 0;
@@ -49,7 +49,7 @@ const HighlightListStyles = styled.div`
     -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
-  .highlight__image {
+  .browser__list__item__image {
     height: 100px;
     object-position: center center;
     object-fit: cover;
@@ -58,7 +58,7 @@ const HighlightListStyles = styled.div`
     display: ${props => (props.type === 'users' ? 'inline' : 'none')};
   }
 
-  .highlight__details {
+  .browser__list__item__details {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,19 +66,19 @@ const HighlightListStyles = styled.div`
     width: 100%;
   }
 
-  .highlight__title {
+  .browser__list__item__title {
     margin: 0;
     transition: all 150ms ease-out;
   }
 
-  .highlight__subtitle {
+  .browser__list__item__subtitle {
     color: var(--grey);
     font-size: 0.9rem;
     margin: 0;
     margin-top: -20px;
   }
 
-  .highlight__stats {
+  .browser__list__item__stats {
     color: var(--grey);
     display: flex;
     font-size: 0.7rem;
@@ -89,20 +89,20 @@ const HighlightListStyles = styled.div`
 
   @media only screen and (max-width: 1100px) {
     grid-template-columns: 250px;
-    .highlight--tiny {
+    .browser__list__item {
       flex-direction: column;
     }
-    .highlight__details {
+    .browser__list__item__details {
       display: grid;
       grid-auto-flow: row;
       grid-gap: 10px;
       margin-top: 20px;
     }
-    .highlight__subtitle {
+    .browser__list__item__subtitle {
       margin: 0;
     }
 
-    .highlight__image__wrapper {
+    .browser__list__item__image__wrapper {
       height: 100px;
       margin: 0;
       width: 100%;
@@ -114,15 +114,15 @@ const HighlightListStyles = styled.div`
   }
   @media only screen and (max-width: 550px) {
     grid-template-columns: 1fr;
-    .highlight--tiny {
+    .browser__list__item {
       flex-direction: row;
     }
-    .highlight__image__wrapper {
+    .browser__list__item__image__wrapper {
       height: 100px;
       margin: 0;
       width: 100px;
     }
-    .highlight__details {
+    .browser__list__item__details {
       display: grid;
       grid-auto-flow: row;
       grid-gap: 5px;
@@ -132,4 +132,4 @@ const HighlightListStyles = styled.div`
   }
 `;
 
-export default HighlightListStyles;
+export default BrowserListStyles;

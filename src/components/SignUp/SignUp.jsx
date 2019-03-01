@@ -5,6 +5,7 @@ import uuid from 'uuid/v4';
 import { getState } from '../../StateProvider';
 import { FormStyles } from '../styles';
 import savingIcon from '../../assets/loaders/svg-loaders/oval.svg';
+import avatar from '../../assets/images/user.png';
 
 function SignUp(props) {
   const { history } = props;
@@ -52,7 +53,7 @@ function SignUp(props) {
         email: form.email,
         password: form.password,
         id: uuid(),
-        avatar: 'https://source.unsplash.com/200x200/?portrait'
+        avatar
       };
       dispatch({
         type: 'registerUser',

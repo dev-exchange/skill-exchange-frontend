@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { Header, SignIn, SignUp, SignOut, OverviewList, Profile } from '..';
+import { Header, SignIn, SignUp, SignOut, Browser, Profile, Dashboard } from '..';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { pathTranslations } from '../../constants';
-
-const ContentStyles = styled.div`
-  display: flex;
-  flex-direction: column;
-  grid-area: content;
-  overflow: hidden;
-`;
+import ContentStyles from './Content.style';
 
 function Content(props) {
   const { location } = props;
@@ -23,12 +16,13 @@ function Content(props) {
   return (
     <ContentStyles>
       <Header pathname={location.pathname} title={title} />
-      <Route path="/projects" render={() => <OverviewList type="projects" />} />
-      <Route exact path="/users" render={() => <OverviewList type="users" />} />
+      <Route path="/projects" render={() => <Browser type="projects" />} />
+      <Route exact path="/users" render={() => <Browser type="users" />} />
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/logout" component={SignOut} />
       <Route path="/profile" component={Profile} />
+      <Route exact path="/" component={Dashboard} />
       <Route path="/users/:id" component={Profile} />
     </ContentStyles>
   );

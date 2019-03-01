@@ -1,8 +1,8 @@
 import React from 'react';
 
-import HighlightListStyles from './HighlightList.style';
+import BrowserListStyles from './BrowserList.style';
 
-export default function HighlightList(props) {
+export default function UserList(props) {
   const { items, setActive, active, type, setView } = props;
   const itemDatas = items.map(item => {
     switch (type) {
@@ -31,33 +31,33 @@ export default function HighlightList(props) {
     setView('overview');
   };
   return (
-    <HighlightListStyles type={type}>
+    <BrowserListStyles type={type}>
       {itemDatas.map(highlight => (
         // eslint-disable-next-line
         <div
           onClick={() => changeActive(highlight)}
-          key={highlight.title}
+          key={highlight.id}
           className={
             active.id === highlight.id
-              ? `highlight--tiny highlight--tiny--active`
-              : `highlight--tiny`
+              ? `browser__list__item browser__list__item--active`
+              : `browser__list__item`
           }
         >
-          <div className="highlight__image__wrapper">
-            <img src={highlight.imageSrc} alt="" className="highlight__image" />
+          <div className="browser__list__item__image__wrapper">
+            <img src={highlight.imageSrc} alt="" className="browser__list__item__image" />
           </div>
-          <div className="highlight__details">
-            <h4 className="highlight__title">{highlight.title}</h4>
-            <p className="highlight__subtitle">{highlight.subtitle}</p>
-            <div className="highlight__stats">
-              <span className="highlight__stat">{highlight.status}</span>
-              <span className="highlight__stat">
+          <div className="browser__list__item__details">
+            <h4 className="browser__list__item__title">{highlight.title}</h4>
+            <p className="browser__list__item__subtitle">{highlight.subtitle}</p>
+            <div className="browser__list__item__stats">
+              <span className="browser__list__item__stat">{highlight.status}</span>
+              <span className="browser__list__item__stat">
                 {type === 'users' ? null : highlight.members.length}
               </span>
             </div>
           </div>
         </div>
       ))}
-    </HighlightListStyles>
+    </BrowserListStyles>
   );
 }
