@@ -18,11 +18,17 @@ const BrowserStyles = styled.div`
     transition: left 200ms;
   }
 
-  > .scroll__wrapper:last-child {
+  > .scroll__wrapper--overview {
     border-left: 1px solid var(--lightgrey);
     height: calc(100vh - 80px);
     margin: 0;
     grid-area: overview;
+  }
+
+  .scroll__wrapper--inner {
+    height: calc(275px);
+    margin: 0;
+    overflow-y: scroll;
   }
   @media only screen and (max-width: 1100px) {
     grid-template-columns: 250px 1fr;

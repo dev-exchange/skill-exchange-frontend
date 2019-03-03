@@ -32,13 +32,30 @@ const UserOverviewStyles = styled.div`
     width: 100%;
   }
 
-  .profile__user__name {
-    color: var(--white);
-    letter-spacing: 1px;
+  .profile__user__title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile__user__title * {
     margin: 0;
   }
 
-  .project__section__title {
+  .profile__user__name {
+    color: var(--white);
+    color: var(--pink);
+    letter-spacing: 1px;
+    margin: 0;
+    opacity: 0.75;
+    text-shadow: 1px 1px 1px white;
+  }
+
+  .profile__user__position {
+    color: var(--pink);
+    color: var(--white);
+  }
+
+  .user__section__title {
     border-bottom: 1px solid var(--lightgrey);
     color: var(--grey);
     font-size: 0.7rem;
@@ -51,65 +68,31 @@ const UserOverviewStyles = styled.div`
     width: 100%;
   }
 
-  .project__details {
-    align-items: start;
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: minmax(220px, 1fr) 175px;
-    grid-template-areas:
-      'info stat'
-      'disc disc';
+  .user__section__title--sub {
+    border: none;
+    margin-bottom: 10px;
+    margin-top: 30px;
   }
 
-  .project__info {
+  .user__details {
     display: flex;
     flex-direction: column;
-    font-weight: 300;
-    grid-area: info;
   }
 
-  .project__title {
-    font-weight: 400;
-    margin: 0;
-  }
-
-  .project__subtitle {
-    color: var(--grey);
-    margin: 10px 0;
-  }
-
-  .user__location {
+  .user__info {
+    display: flex;
+    justify-content: space-between;
     font-size: 0.8rem;
   }
 
-  .project__description {
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 1.25rem;
-  }
-
-  .project__stats {
+  .user__info__item {
     display: grid;
-    grid-area: stat;
-    grid-auto-flow: row;
+    grid-auto-flow: column;
+    grid-gap: 5px;
   }
 
-  .project__stat {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .project__stat__name {
+  .user__info__icon {
     color: var(--grey);
-    font-size: 0.9rem;
-    font-weight: 300;
-  }
-
-  .project__stat__value {
-    font-size: 0.9rem;
-    font-weight: 400;
-    text-align: right;
   }
 
   .view__toggle__button {
@@ -130,7 +113,7 @@ const UserOverviewStyles = styled.div`
   }
 
   @media only screen and (max-width: 1000px) {
-    .project__details {
+    .user__details {
       grid-template-columns: 1fr;
       grid-template-areas:
         'info'

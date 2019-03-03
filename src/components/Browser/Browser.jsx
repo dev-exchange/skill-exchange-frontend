@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import BrowserStyles from './Browser.style';
-import { ProjectOverview, UserOverview, BrowserList } from '..';
+import { ProjectOverview, UserOverview, BrowserList, UserList } from '..';
 import { getState } from '../../StateProvider';
 
 export default function Browser(props) {
   const { type } = props;
-  const [{ highlights, users }] = getState();
+  const [{ projects, users }] = getState();
   const items = {
-    projects: highlights,
+    projects,
     users: users.sort((a, b) => {
       if (a.firstName < b.firstName) {
         return -1;
@@ -20,7 +20,7 @@ export default function Browser(props) {
       return 0;
     })
   };
-  const limit = 10;
+  const limit = 20;
   const [view, changeView] = useState('list');
   const [filterTerm, setFilterTerm] = useState('');
   const [active, setActive] = useState(items[type][0]);
@@ -39,23 +39,24 @@ export default function Browser(props) {
     }
   };
   const filter = ev => {
-    setFilterTerm(ev.target.value.toLowerCase());
+    const newFilterTerm = ev.target.value.toLowerCase();
+    setFilterTerm(newFilterTerm);
+    if (newFilterTerm.length === 0) {
+      clearFilter();
+    } else if (newFilterTerm.length >= 3) {
+      setItems(
+        items[type].filter(item =>
+          type === 'users'
+            ? item.firstName.toLowerCase().indexOf(newFilterTerm) > -1
+            : item.title.toLowerCase().indexOf(newFilterTerm) > -1
+        )
+      );
+    }
   };
   const clearFilter = () => {
     setFilterTerm('');
     setItems(items[type].slice(0, limit));
   };
-  useEffect(() => {
-    if (filterTerm.length >= 3) {
-      setItems(
-        items[type].filter(item =>
-          type === 'users'
-            ? item.firstName.toLowerCase().indexOf(filterTerm) > -1
-            : item.title.toLowerCase().indexOf(filterTerm) > -1
-        )
-      );
-    }
-  });
   return (
     <BrowserStyles view={view}>
       <BrowserStyles.filter view={view}>
@@ -75,21 +76,31 @@ export default function Browser(props) {
         </label>
       </BrowserStyles.filter>
       <div className="scroll__wrapper" onScroll={handleScroll}>
-        <BrowserList
-          type={type}
-          items={itemList}
-          setView={setView}
-          setActive={setActive}
-          active={active}
-        />
+        {type === 'users' ? (
+          <UserList
+            type={type}
+            users={itemList}
+            setView={setView}
+            setActive={setActive}
+            active={active}
+          />
+        ) : (
+          <BrowserList
+            type={type}
+            items={itemList}
+            setView={setView}
+            setActive={setActive}
+            active={active}
+          />
+        )}
       </div>
       {type === 'projects' ? (
-        <div className="scroll__wrapper">
+        <div className="scroll__wrapper scroll__wrapper--overview">
           <ProjectOverview project={active} view={view} setView={setView} />
         </div>
       ) : null}
       {type === 'users' ? (
-        <div className="scroll__wrapper">
+        <div className="scroll__wrapper scroll__wrapper--overview">
           <UserOverview user={active} view={view} setView={setView} overview />
         </div>
       ) : null}

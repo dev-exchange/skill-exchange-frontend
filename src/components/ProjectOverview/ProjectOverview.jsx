@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Moment from 'react-moment';
-import { getState } from '../../StateProvider';
 import ProjectOverviewStyles from './ProjectOverview.style';
 import { ProfileMenu } from '..';
-import projectBanner from '../../assets/images/dust_scratches.png';
 
 export default function ProjectOverview(props) {
-  const { project, history, setView } = props;
+  const { project, setView } = props;
   const timestampFormat = 'ddd, MMM M, YYYY @ h:mm a';
+  const [prevProject, setPrevProject] = useState(null);
   useEffect(() => {
-    document.querySelectorAll('.scroll__wrapper')[1].scrollTop = 0;
-    document.querySelectorAll('.scroll__wrapper')[2].scrollTop = 0;
+    if (!Object.is(project, prevProject)) {
+      document.querySelectorAll('.scroll__wrapper')[1].scrollTop = 0;
+      document.querySelectorAll('.scroll__wrapper')[2].scrollTop = 0;
+      setPrevProject(project);
+    }
   });
   return (
     <ProjectOverviewStyles>
@@ -29,7 +31,7 @@ export default function ProjectOverview(props) {
           <p className="project__description">{project.description}</p>
           <div className="project__members">
             <span className="project__section__title">Project Members</span>
-            <div className="scroll__wrapper">
+            <div className="scroll__wrapper scroll__wrapper--inner">
               <div className="project__member__list">
                 {project.members.map(member => (
                   <div key={member.firstName} className="project__member">

@@ -103,19 +103,24 @@ export default function ProfileEdit(props) {
   // SAVE ALL CHANGED SECTIONS
   const saveChanged = () =>
     new Promise((resolve, reject) => {
+      let updatedUser = { ...currentUser };
       changed.sections.forEach(async sectionTitle => {
         switch (sectionTitle) {
           case 'basics': {
+            console.log('saving basics');
+            updatedUser = { ...updatedUser, ...basicForm };
             dispatch({
               type: 'updateUser',
-              updatedUser: { ...currentUser, ...basicForm }
+              updatedUser
             });
             break;
           }
           case 'bio': {
+            console.log('saving bio');
+            updatedUser = { ...updatedUser, ...bioForm };
             dispatch({
               type: 'updateUser',
-              updatedUser: { ...currentUser, ...bioForm }
+              updatedUser
             });
             break;
           }

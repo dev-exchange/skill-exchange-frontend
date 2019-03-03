@@ -6,6 +6,7 @@ export { default as SignOut } from './SignOut/SignOut';
 // BROWSER
 export { default as Browser } from './Browser/Browser';
 export { default as BrowserList } from './BrowserList/BrowserList';
+export { default as UserList } from './UserList/UserList';
 
 // DASHBOARD
 export { default as Dashboard } from './Dashboard/Dashboard';

@@ -48,11 +48,6 @@ const ProjectOverviewStyles = styled.div`
     /* padding-top: 30px; */
   }
 
-  .scroll__wrapper {
-    height: calc(275px);
-    overflow-y: scroll;
-  }
-
   /* PROJECT INFO */
 
   .project__info {

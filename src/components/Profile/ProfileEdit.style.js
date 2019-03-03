@@ -16,6 +16,7 @@ const ProfileEditStyles = styled.div`
   z-index: 1000;
 
   .profile__editor {
+    align-items: start;
     display: grid;
     grid-gap: 25px;
     grid-template-columns: 1fr 1fr;
